@@ -26,6 +26,11 @@ p {
     margin-left: 60px;
 }
 
+audio {
+    margin-top: 15px;
+    width: 15em;
+}
+
 .navbar {
     display: flex;
     width: 100%;
@@ -114,11 +119,12 @@ p {
     height: 60vh;
     background-color: black;
     color: white;
-    border: 1px solid #ccc;
+    border: 2px solid rgb(255, 255, 255);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1;
     opacity: 0;
     overflow-y: auto;
+    border-radius: 5px;
 
 }
 

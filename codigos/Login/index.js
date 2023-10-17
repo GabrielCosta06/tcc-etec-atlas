@@ -135,3 +135,29 @@ function changeLanguage(language) {
         portugueseContent.style.display = 'block';
     }
 }
+
+const firestore = firebase.firestore();
+
+function saveGameProgress(userId, gameProgress) {
+    firestore.collection('userProgress').doc(userId).set({
+        progress: gameProgress
+    }).then(() => {
+        console.log('Progresso do jogo salvo com sucesso!');
+    }).catch((error) => {
+        console.error('Erro ao salvar o progresso do jogo: ', error);
+    });
+}
+
+function getGameProgress(userId) {
+    const docRef = firestore.collection('userProgress').doc(userId);
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            const progressData = doc.data();
+            console.log('Progresso do jogo encontrado: ', progressData);
+        } else {
+            console.log('Nenhum progresso do jogo encontrado para o usuário');
+        }
+    }).catch((error) => {
+        console.error('Erro ao obter o progresso do jogo: ', error);
+    });
+}

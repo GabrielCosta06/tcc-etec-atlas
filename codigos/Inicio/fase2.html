@@ -8,10 +8,10 @@
     <title>Fase 2</title>
     <link rel="stylesheet" href="fase1.css">
     <link rel="stylesheet" href="menu.css">
-
 </head>
 
 <body>
+
     <header>
         <p>2</p>
         <div class="navbar">
@@ -20,7 +20,9 @@
 
                 <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
             </div>
+            <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
         </div>
+
     </header>
 
     <nav class="circular-menu">
@@ -49,7 +51,6 @@
     </div>
 
     <script>
-
         // Demo by http://creative-punch.net
 
         var items = document.querySelectorAll('.circle a');
@@ -70,7 +71,7 @@
 
         function verificarResposta() {
             var rs = document.getElementById("rs").value;
-            if (rs.toLowerCase() === "oi") {
+            if (rs.toLowerCase() === "a capela de ossos" || rs.toLowerCase() === "capela de ossos") {
                 window.alert("Resposta correta! Próxima fase...");
                 window.location.href = 'fase3.html';
 
