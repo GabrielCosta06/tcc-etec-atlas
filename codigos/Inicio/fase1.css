@@ -193,6 +193,7 @@ audio {
     height: 3vh;
     font-weight: bold;
     margin: 7px;
+    z-index: 5;
 }
 
 .email{
@@ -295,20 +296,59 @@ button.fechar:active{
 .cod{
     color: white;
     text-align: center;
-    flex: 1;
     font-size: 20px;
     margin-top: 10vh;
    opacity: 0;
 }
 
 .sun{
-    font-size: 300px;
+    font-size: 30px;
     color: white;
     z-index: 2;
+    justify-content: center;
+    display: flex;
+    margin-left:45vw;
+    text-align: center;
 }
-.txtModalDia2{
+
+
+.modaldia2{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 5vh;
+    left: 70vw;
+    width: 20vw;
+    height: 60vh;
+    background-color: black;
+    color: white;
+    border: 2px solid rgb(255, 255, 255);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    opacity: 0;
+    overflow-y: auto;
+    border-radius: 5px;
 
 }
+.binario{
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+}
+.select{
+    color: white;
+    font-size: 50px;
+    text-decoration: overline;
+    display: flex;
+    justify-content: center;
+}
+.nome{
+    color: white;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+}
+
 
 @media (max-width: 1055px) {
     div.modal-content {
