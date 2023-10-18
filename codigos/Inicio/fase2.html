@@ -11,24 +11,10 @@
 </head>
 
 <body>
-
-    <header>
-        <p>2</p>
-        <div class="navbar">
-            <div class="resposta">
-                <input type="text" class="rs" id="rs" autocomplete="off" placeholder="...">
-
-                <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
-            </div>
-            <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
-        </div>
-
-    </header>
-
     <nav class="circular-menu">
 
         <div class="circle">
-            <a href="" class="fa fa-gear fa-2x"></a>
+            <a id="openModalButtonSlider" class="fa fa-gear fa-2x"></a>
 
             <div class="opacidade">
                 <a href="" class="fa fa-facebook fa-2x"></a>
@@ -39,17 +25,68 @@
             </div>
 
             <a href="../../codigos/Login/pages/home/home-logado.html" class="fa fa-home fa-2x"></a>
-            <a href="" class="fa fa-book fa-2x"></a>
+            <a id="openEmailModalBtn" class="fa fa-book fa-2x"></a>
         </div>
 
-        <a href="" class="menu-button fa fa-bars fa-2x"></a>
+        <a class="menu-button fa fa-bars fa-2x"></a>
 
     </nav>
+    <div id="tudo">
+        <header>
+            <p>2</p>
+            <div class="navbar">
+                <div class="resposta">
+                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="...">
+
+                    <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
+                </div>
+                <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
+            </div>
+
+        </header>
+        <i class="fa fa-sun-o" class="sun"></i>
+        <h1 class="cod"> 38.56889920928527, -7.908806192879108</h1>
+
+
+        <div id="emailModal" class="modalEmail">
+            <div class="modal-content">
+                <span class="close" id="closeEmailModalBtn">&times;</span>
+                <h2 class="glitch layers font email">Email</h2>
+                <div class="txtModalDia2">
+                    <br>
+                    hoje acordei depois de um longo pesadelo sobre o e-mail de ontem, li o mesmo cerca de 13 vezes sem
+                    parar e não entendia sequer uma palavra daquele texto enigmático e melancólico. <br><br>
+
+                    Após o almoço tentei procurar sobre na internet, não havia nada sobre esse tal de </E.V.A.> porém
+                    descobri que esses sinais são de uma linguagem de programação chamada HTML, mas não consegui
+                    assimilar essa informação a nada. <br> <br>
+
+                    Decidi dar um tempo e dar andamento aos meus afazeres, fui ao mercado e depois a farmácia, porém no
+                    trajeto todo senti como se eu estivesse sendo vigiado o tempo todo até que lembrei do endereço de
+                    e-mail que era EVA@gmail.com. Tem algo brilhante no ar.. <br><br>
+                </div>
+            </div>
+        </div>
+
+        <div id="myModalSlider" class="modalSlider">
+            <div class="modal-content">
+                <h1 class="conftxt">CONFIGURAÇÕES</h1>
+                <div class="slider-container">
+                    <div class="brilho">
+                        Brilho
+                        <!-- Ícone de brilho -->
+                    </div>
+                    <input type="range" id="brightnessSlider" min="30" max="100" value="100">
+
+                </div>
+                <button class="fechar" id="closeModalSlider">Fechar</button>
+            </div>
+        </div>
+    </div>
 
 
 
     </div>
-
     <script>
         // Demo by http://creative-punch.net
 
@@ -84,6 +121,95 @@
             const windowFeatures = "left=800,top=350,width=320,height=320";
             window.open('sobre.html', 'popup', windowFeatures);
         }
+
+
+        //modalEmail
+        const openEmailModalBtn = document.getElementById("openEmailModalBtn");
+        const emailModal = document.getElementById("emailModal");
+        const closeEmailModalBtn = document.getElementById("closeEmailModalBtn");
+        //modalSlider
+        const openModalButtonSlider = document.getElementById("openModalButtonSlider");
+        const closeModalSlider = document.getElementById("closeModalSlider");
+        const modalSlider = document.getElementById("myModalSlider");
+        const brightnessSlider = document.getElementById("brightnessSlider");
+
+        let isEmailModalDraggable = false;
+
+        // Função para tornar o modal de email arrastável
+        function makeEmailModalDraggable() {
+            emailModal.style.cursor = "grab";
+            emailModal.style.userSelect = "none";
+
+            emailModal.addEventListener("mousedown", startDraggingEmailModal);
+            emailModal.addEventListener("mouseup", stopDraggingEmailModal);
+        }
+
+        // Função para iniciar o arrastamento do modal de email
+        function startDraggingEmailModal(e) {
+            isEmailModalDraggable = true;
+            offsetEmailModalX = e.clientX - emailModal.getBoundingClientRect().left;
+            offsetEmailModalY = e.clientY - emailModal.getBoundingClientRect().top;
+            emailModal.style.cursor = "grabbing";
+        }
+
+        // Função para parar o arrastamento do modal de email
+        function stopDraggingEmailModal() {
+            isEmailModalDraggable = false;
+            emailModal.style.cursor = "grab";
+        }
+
+        // Função para mover o modal de email durante o arrastamento
+        function dragEmailModal(e) {
+            if (isEmailModalDraggable) {
+                emailModal.style.left = e.clientX - offsetEmailModalX + "px";
+                emailModal.style.top = e.clientY - offsetEmailModalY + "px";
+            }
+        }
+
+        // Event listeners para tornar os modais arrastáveis
+        makeEmailModalDraggable();
+
+        // Event listeners para arrastar os modais
+        document.addEventListener("mousemove", dragEmailModal);
+
+        // Função para abrir o modal de email
+        openEmailModalBtn.addEventListener("click", () => {
+            emailModal.style.display = "block";
+            emailModal.style.opacity = '100%';
+        });
+
+        // Função para fechar o modal de email
+        closeEmailModalBtn.addEventListener("click", () => {
+            emailModal.style.display = "none";
+        });
+
+
+
+        //OPen config
+        openModalButtonSlider.addEventListener("click", () => {
+            modalSlider.style.display = "block";
+            modalSlider.style.opacity = '100%';
+        });
+
+        closeModalSlider.addEventListener("click", () => {
+            modalSlider.style.display = "none";
+        });
+
+
+        //SliderBrilho
+        brightnessSlider.addEventListener("input", () => {
+            const brightnessValue = brightnessSlider.value;
+            document.getElementById("tudo").style.filter = `brightness(${brightnessValue}%)`;
+
+            const codElements = document.querySelectorAll(".cod");
+            codElements.forEach((element) => {
+                const initialOpacity = 100 - brightnessValue; // Calcula a opacidade inicial
+                element.style.opacity = initialOpacity / 100; // Define a opacidade com base no valor do slider
+            });
+        });
+
+
+
     </script>
 
 </body>

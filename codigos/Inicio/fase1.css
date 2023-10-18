@@ -142,6 +142,7 @@ audio {
     padding: 0px;
     cursor: pointer;
     font-size: 40px;
+    z-index: 6;
 }
 
 .close:hover {
@@ -289,6 +290,24 @@ button.fechar:hover{
 button.fechar:active{
     color: #fff;
     border: 1px #fff solid;
+}
+
+.cod{
+    color: white;
+    text-align: center;
+    flex: 1;
+    font-size: 20px;
+    margin-top: 10vh;
+   opacity: 0;
+}
+
+.sun{
+    font-size: 300px;
+    color: white;
+    z-index: 2;
+}
+.txtModalDia2{
+
 }
 
 @media (max-width: 1055px) {
