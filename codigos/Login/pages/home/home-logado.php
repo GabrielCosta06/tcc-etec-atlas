@@ -16,7 +16,11 @@
                 <div class="login-texto">
                     <ul>
                         <li><a href="#">Bem-vindo(a)!</a></li>
-                        <li><a href="#"><button class="botao-sair" type="button" class="clear" onclick="logout()">Sair</button></a></li>
+                        <li><a href="#">
+                                <form method="post">
+                                    <button class="botao-sair" type="submit" name="logout" class="clear">Sair</button>
+                                </form>
+                            </a></li>
                     </ul>
                 </div>
             </div>
@@ -33,7 +37,9 @@
                         <div class="jogar">
                             <p>Você joga e se diverte!<br><span>Tá esperando o que?</span></p>
                             <br>
-                            <a href="../../../Inicio/fase1.html"><button>Jogar</button></a>
+                            <form method="post">
+                                <button name="jogar">Jogar</button>
+                            </form>
                         </div>
                         <div class="sobre">
                             <p>Grupo ATLAS<br><span>ETEC - IPIA</span></p>
@@ -57,21 +63,35 @@
             </div>
         </section>
     </main>
+    <script src="home.js"></script>
 </body>
 
 <?php
 session_start();
+require_once '../../db_connect.php';
 
-// Unset all of the session variables
-$_SESSION = array();
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST['logout'])) {
+        // Unset all of the session variables
+        $_SESSION = array();
 
-// Destroy the session.
-session_destroy();
+        // Destroy the session.
+        session_destroy();
 
-// Redirect to the login page or any other page after logout
-header("Location: ../../index.php");
-exit;
+        // Redirect to the login page or any other page after logout
+        header("Location: ../../index.php");
+        exit;
+    }
+
+    if (isset($_POST['jogar'])) {
+        if (isset($_SESSION['progress'])) {
+            $savedProgress = $_SESSION['progress'];
+            $page = "fase" . $savedProgress . ".php";
+            header("Location: ../../../Fases/" . $page);
+            exit;
+        }
+    }
+}
 ?>
-
 
 </html>

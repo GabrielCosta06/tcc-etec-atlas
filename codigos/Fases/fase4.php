@@ -1,3 +1,37 @@
+<?php
+// Iniciando a sessão para garantir que o usuário esteja conectado
+session_start();
+
+// Certificando de que a variável de sessão está definida antes de acessá-la
+if (isset($_SESSION['user_id'])) {
+    $userId = $_SESSION['user_id'];
+
+    // Estabelecendo uma conexão com o banco de dados antes de usar a variável $conn
+    require_once '../Login/db_connect.php';
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $progress = 4; // ou qualquer outro valor apropriado que você deseja atribuir
+
+        // Consulta SQL para atualizar o valor do progresso para o usuário
+        $sql = "UPDATE users SET progress = '$progress' WHERE user_id = '$userId'";
+
+        if ($conn->query($sql) === TRUE) {
+            // Convertendo o comando echo do PHP em um alerta em JavaScript
+            echo '<script>alert("Progresso atualizado com sucesso!")</script>';
+        } else {
+            // Convertendo o comando echo do PHP em um alerta em JavaScript
+            echo '<script>alert("Erro ao atualizar o registro: ' . $conn->error . '")</script>';
+        }
+        $conn->close();
+    }
+} else {
+    // Convertendo o comando echo do PHP em um alerta em JavaScript
+    echo '<script>alert("ID do usuário não definido na sessão.")</script>';
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +42,27 @@
     <title>Fase 4</title>
     <link rel="stylesheet" href="fase1.css">
     <link rel="stylesheet" href="menu.css">
+    <style>
+        .button {
+            display: inline-block;
+            border-radius: 4px;
+            background-color: #7e57c2;
+            border: none;
+            color: #ffffff;
+            text-align: center;
+            font-size: 16px;
+            padding: 10px;
+            width: 120px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            font-family: Arial, sans-serif;
+        }
+
+        .button:hover {
+            background-color: #5d4099;
+        }
+    </style>
 
 </head>
 
@@ -25,7 +80,7 @@
                 <a href="" class="fa fa-rss fa-2x"></a>
             </div>
 
-            <a href="../../codigos/Login/pages/home/home-logado.html" class="fa fa-home fa-2x"></a>
+            <a href="../../codigos/Login/pages/home/home-logado.php" class="fa fa-home fa-2x"></a>
             <a id="openEmailModalBtn" class="fa fa-book fa-2x"></a>
         </div>
 
@@ -41,6 +96,9 @@
 
                     <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
                 </div>
+                <form action="fase4.php" method="post">
+                    <button type="submit" name="save_progress" class="button">Salvar Progresso</button>
+                </form>
                 <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
             </div>
         </header>
@@ -95,7 +153,6 @@
 
 
     <script>
-
         // Demo by http://creative-punch.net
 
         var items = document.querySelectorAll('.circle a');
@@ -106,8 +163,9 @@
             items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
         }
 
-        document.querySelector('.menu-button').onclick = function (e) {
-            e.preventDefault(); document.querySelector('.circle').classList.toggle('open');
+        document.querySelector('.menu-button').onclick = function(e) {
+            e.preventDefault();
+            document.querySelector('.circle').classList.toggle('open');
         }
 
 
@@ -118,13 +176,14 @@
             var rs = document.getElementById("rs").value;
             if (rs.toLowerCase() === "oi") {
                 window.alert("Resposta correta! Próxima fase...");
-                window.location.href = 'fase5.html';
+                window.location.href = 'fase5.php';
 
             } else {
                 alert("Resposta incorreta!");
                 location.reload();
             }
         }
+
         function openPopup() {
             const windowFeatures = "left=800,top=350,width=320,height=320";
             window.open('sobre.html', 'popup', windowFeatures);

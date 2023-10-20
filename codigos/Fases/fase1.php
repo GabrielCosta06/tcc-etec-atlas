@@ -27,7 +27,7 @@
                 <a class="fa fa-rss fa-2x"></a>
             </div>
 
-            <a href="../../codigos/Login/pages/home/home-logado.html" class="fa fa-home fa-2x"></a>
+            <a href="../../codigos/Login/pages/home/home-logado.php" class="fa fa-home fa-2x"></a>
             <a id="openModalBtn" class="fa fa-book fa-2x"></a>
         </div>
 
@@ -45,7 +45,6 @@
                 <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
             </div>
         </header>
-        <div class="nome">Seu Nome</div>
         <div style="display: flex; justify-content: center; margin-top: 2%;">
             <div id="iframe-container" style="width: 60%;">
                 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
@@ -53,7 +52,7 @@
                 </div>
             </div>
         </div>
-        
+
 
         <div id="mainModal" class="modal">
             <div class="modal-content">
@@ -149,10 +148,10 @@
                 <div class="slider-container">
                     <div class="brilho">
                         Brilho
-                         <!-- Ícone de brilho -->
+                        <!-- Ícone de brilho -->
                     </div>
                     <input type="range" id="brightnessSlider" min="30" max="100" value="100">
-                    
+
                 </div>
                 <button class="fechar" id="closeModalSlider">Fechar</button>
             </div>
@@ -160,7 +159,6 @@
     </div>
 
     <script>
-
         //MENU
 
         var items = document.querySelectorAll('.circle a, .circle buttom');
@@ -171,8 +169,9 @@
             items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
         }
 
-        document.querySelector('.menu-button').onclick = function (e) {
-            e.preventDefault(); document.querySelector('.circle').classList.toggle('open');
+        document.querySelector('.menu-button').onclick = function(e) {
+            e.preventDefault();
+            document.querySelector('.circle').classList.toggle('open');
         }
 
 
@@ -183,13 +182,14 @@
             var rs = document.getElementById("rs").value;
             if (rs.toLowerCase() === "tobias") {
                 window.alert("Resposta correta! Próxima fase...");
-                window.location.href = 'fase2.html';
+                window.location.href = 'fase2.php';
 
             } else {
                 alert("Resposta incorreta!");
                 location.reload();
             }
         }
+
         function openPopup() {
             const windowFeatures = "left=800,top=350,width=320,height=320";
             window.open('sobre.html', 'popup', windowFeatures);
@@ -324,7 +324,6 @@
             document.getElementById("tudo").style.filter = `brightness(${brightnessValue}%)`;
 
         });
-
     </script>
 
 </body>

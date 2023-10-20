@@ -12,17 +12,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
-          $_SESSION['user_id'] = $row['user_id'];
-          $_SESSION['email'] = $email;
-          $_SESSION['progress'] = $row['progress'];
-      
-          $page = "fase" . $row['progress'] . ".php";
-          header("Location: " . $page);
-          exit;
-      } else {
-          echo "Senha incorreta!";
-      }
-      
+            $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['email'] = $email;
+            $_SESSION['progress'] = $row['progress'];
+
+            $page = "fase" . $row['progress'] . ".php";
+            header("Location: ../Fases/" . $page);
+            exit;
+        } else {
+            echo "Senha incorreta!";
+        }
     } else {
         echo "Usuário não encontrado!";
     }
@@ -63,8 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="button" class="clear" id="recover-password-button" disabled="true">Recuperar
                     senha</button>
                 <button type="submit" class="solid" id="login-button">Login</button>
-                <button style="background: transparent; border: none; box-shadow: none; color: white;" type="button"
-                    class="outline" onclick="irRegistro()">Registrar</button>
+                <button style="background: transparent; border: none; box-shadow: none; color: white;" type="button" class="outline" onclick="irRegistrar()">Registrar</button>
             </form>
         </div>
     </div>
