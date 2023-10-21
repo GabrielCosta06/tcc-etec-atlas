@@ -15,14 +15,14 @@ if (isset($_SESSION['user_id'])) {
         $sql = "UPDATE users SET progress = '$progress' WHERE user_id = '$userId'";
 
         if ($conn->query($sql) === TRUE) {
-            echo "Progress updated successfully!";
+            phpAlert("SUCESSO: Seu progresso foi salvo com sucesso!");
         } else {
-            echo "Error updating record: " . $conn->error;
+            phpAlert("ERRO: Ops... Ocorreu um erro: ") . $conn->error;
         }
         $conn->close();
     }
 } else {
-    echo "User ID not set in session.";
+     phpAlert("ERRO: Usuário não está com ID setado na sessão.");
 }
 ?>
 

@@ -2,6 +2,10 @@
 session_start();
 require_once 'db_connect.php';
 
+function phpAlert($msg) {
+    echo '<script type="text/javascript">alert("' . $msg . '")</script>';
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -16,14 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $email;
             $_SESSION['progress'] = $row['progress'];
 
-            $page = "fase" . $row['progress'] . ".php";
-            header("Location: ../Fases/" . $page);
+            header("Location: ./pages/home/home-logado.php");
             exit;
         } else {
-            echo "Senha incorreta!";
+            phpAlert('Senha incorreta!');
         }
     } else {
-        echo "Usuário não encontrado!";
+        phpAlert("Usuário não encontrado!");
     }
     $conn->close();
 }

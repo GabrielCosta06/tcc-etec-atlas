@@ -17,7 +17,7 @@
                     <ul>
                         <li><a href="#">Bem-vindo(a)!</a></li>
                         <li><a href="#">
-                                <form method="post">
+                                <form action="home-logado.php" method="post">
                                     <button class="botao-sair" type="submit" name="logout" class="clear">Sair</button>
                                 </form>
                             </a></li>
@@ -37,7 +37,7 @@
                         <div class="jogar">
                             <p>Você joga e se diverte!<br><span>Tá esperando o que?</span></p>
                             <br>
-                            <form method="post">
+                            <form action="home-logado.php" method="post">
                                 <button name="jogar">Jogar</button>
                             </form>
                         </div>
@@ -49,7 +49,6 @@
                     </div>
                 </div>
             </div>
-            <img src="./img/1.png" alt="">
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <span id="closeModalBtn" class="close">&times;</span>
@@ -70,6 +69,10 @@
 session_start();
 require_once '../../db_connect.php';
 
+function phpAlert($msg) {
+    echo '<script type="text/javascript">alert("' . $msg . '")</script>';
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST['logout'])) {
         // Unset all of the session variables
@@ -77,18 +80,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Destroy the session.
         session_destroy();
-
+        
+        phpAlert('Você deslogou com sucesso!');
         // Redirect to the login page or any other page after logout
         header("Location: ../../index.php");
         exit;
     }
-
-    if (isset($_POST['jogar'])) {
-        if (isset($_SESSION['progress'])) {
-            $savedProgress = $_SESSION['progress'];
-            $page = "fase" . $savedProgress . ".php";
-            header("Location: ../../../Fases/" . $page);
-            exit;
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        if (isset($_POST['jogar'])) {
+            if (isset($_SESSION['progress'])) {
+                $savedProgress = $_SESSION['progress'];
+                $page = "fase" . $savedProgress . ".php";
+                header("Location: ../../../Fases/" . $page);
+                exit;
+            }
         }
     }
 }

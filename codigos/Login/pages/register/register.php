@@ -2,20 +2,30 @@
 session_start();
 require_once '../../db_connect.php';
 
+function phpAlert($msg) {
+    echo '<script type="text/javascript">alert("' . $msg . '")</script>';
+}
+
+//checo se o metodo é igual a post
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
-    $sql = "INSERT INTO users (email, password) VALUES ('$email', '$password')";
-
-    if ($conn->query($sql) === TRUE) {
-        $_SESSION['email'] = $email;
-        header("Location: ../home/home-logado.php"); // Redirect to the welcome page after registration
-        exit();
+//checando se as senhas coincidem
+    if ($_POST['password'] != $_POST['confirmPassword']) {
+        phpAlert('As senhas não coincidem!');
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+//se senhas coincidem, insere na tabela
+        $sql = "INSERT INTO users (email, password) VALUES ('$email', '$password')";
+//caso haja inserção de dados na tabela, então redireciona para home-logado.php
+        if ($conn->query($sql) === TRUE) {
+            $_SESSION['email'] = $email;
+            header("Location: ../../index.php"); // Redirect to the welcome page after registration
+            exit();
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+        $conn->close();
     }
-    $conn->close();
 }
 ?>
 
