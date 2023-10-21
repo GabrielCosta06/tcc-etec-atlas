@@ -63,7 +63,6 @@ if (isset($_SESSION['user_id'])) {
             background-color: #5d4099;
         }
     </style>
-
 </head>
 
 <body>
@@ -84,7 +83,7 @@ if (isset($_SESSION['user_id'])) {
             <a id="openEmailModalBtn" class="fa fa-book fa-2x"></a>
         </div>
 
-        <a href="" class="menu-button fa fa-bars fa-2x"></a>
+        <a class="menu-button fa fa-bars fa-2x"></a>
 
     </nav>
     <div id="tudo">
@@ -95,13 +94,39 @@ if (isset($_SESSION['user_id'])) {
                     <input type="text" class="rs" id="rs" autocomplete="off" placeholder="...">
 
                     <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
+
                 </div>
-                <form action="fase4.php" method="post">
-                    <button type="submit" name="save_progress" class="button">Salvar Progresso</button>
-                </form>
-                <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
             </div>
         </header>
+        <h2 class="binario">   
+        <div class="g1">01100101 </div> 
+        <div class="g2">01110011</div>
+        <div class="g3">01110100</div>
+        <div class="g4">01100001</div>
+        <div class="g5">01101101</div>
+
+        <div class="g1">01101111 </div>
+        <div class="g2">01110011 </div>
+        <div class="g3">00100000 </div>
+        <div class="g4">01100101 </div>
+        <div class="g5">01101101 </div>
+
+        <div class="g1">00100000 </div>
+        <div class="g2">01110100 </div>
+        <div class="g3">01101111 </div>
+        <div class="g4">01100100 </div>
+        <div class="g5">01100001 </div>
+
+        <div class="g1">00100000 </div>
+        <div class="g2">01110000 </div>
+        <div class="g3">01100001 </div>
+        <div class="g4">01110010 </div>
+        <div class="g5">01110100 </div>
+        <div class="g1">01100101  </h2><br><br><br>
+
+        <form action="fase4.php" method="post">
+            <div class="salvar"> <button type="submit" name="save_progress" class="button">Salvar Progresso</button></div>
+        </form>
 
         <div id="emailModal" class="modaldia2">
             <div class="modal-content">
@@ -109,28 +134,38 @@ if (isset($_SESSION['user_id'])) {
                 <h1>Querido Diário, </h1>
                 <div class="txtModalDia2">
                     <br>
-                    No meio deste vasto enigma de incerteza e medo, finalmente tomei a decisão de deixar o -. conforto
-                    do meu apartamento e seguir até a misteriosa capela de ossos, ansioso para descobrir o que me
-                    aguardava lá.- Chamei um táxi e o motorista começou a me contar histórias estranhas que aconteciam
-                    na região, mas eu estava determinado a prosseguir, focado apenas em desvendar o mistério que me
-                    aguardava na capela --- <br><br>
+                    O medo e o desespero começaram a se apoderar de mim, mas minha inabalável curiosidade para desvendar
+                    o propósito daquele lugar misterioso era ainda mais forte.<br><br>
 
-                    Ao chegar à entrada da capela, deparei-me com uma porta negra que, de repente, se abriu - Uma voz
-                    ecoou de dentro, chamando-me para entrar Nesse momento, minhas . pernas tremeram incontrolavelmente,
-                    um medo profundo e uma presença maligna pareciam dominar minha alma Incapaz de resistir, fui
-                    compelido a seguir adiante, -- embora incapaz de entender o que exatamente me controlava naquele
-                    momento <br> <br>
+                    Decidi tomar um banho na esperança de acalmar minha mente e afastar momentaneamente esses
+                    pensamentos perturbadores. No entanto, quanto mais eu tentava esquecer a situação, mais ela parecia
+                    se infiltrar em minha consciência. Cada gota d'água que caía sobre mim era um lembrete constante da
+                    incerteza que me cercava. Mesmo que eu desejasse profundamente libertar minha mente desses
+                    pensamentos, a sensação de que estava embarcando em uma jornada irreversível se tornava cada vez
+                    mais intensa.<br><br>
+
+                    No meio deste vasto enigma de incerteza e medo, finalmente tomei a decisão de deixar o conforto do
+                    meu apartamento e seguir até a misteriosa capela de ossos, ansioso para descobrir o que me aguardava
+                    lá. Chamei um táxi e o motorista começou a me contar histórias estranhas que aconteciam na região,
+                    mas eu estava determinado a prosseguir, focado apenas em desvendar o mistério que me aguardava na
+                    capela. <br><br>
+
+                    Ao chegar à entrada da capela, deparei-me com uma porta negra que, de repente, se abriu. Uma voz
+                    ecoou de dentro, chamando-me para entrar. Nesse momento, minhas pernas tremeram incontrolavelmente,
+                    um medo profundo e uma presença maligna pareciam dominar minha alma. Incapaz de resistir, fui
+                    compelido a seguir adiante, embora incapaz de entender o que exatamente me controlava naquele
+                    momento.<br><br>
 
                     Caminhando em direção a um ser envolto em uma capa negra, dois outros seres surgiram e me forçaram a
-                    me prostrar diante dele ...- O misterioso ser começou a falar comigo, expressando sua necessidade de
+                    me prostrar diante dele. O misterioso ser começou a falar comigo, expressando sua necessidade de
                     saciar sua fome por almas e prometendo recompensas que eu nunca tinha sequer imaginado, contanto que
-                    eu concordasse em fazer tudo o que ele desejava --- Movido por uma profunda carência e controlado
-                    por uma influência desconhecida, eu concordei.-.. <br><br>
+                    eu concordasse em fazer tudo o que ele desejava. Movido por uma profunda carência e controlado por
+                    uma influência desconhecida, eu concordei.<br><br>
 
-                    Naquele momento, parecia que eu havia perdido o controle do meu próprio corpo - Logo depois, acordei
-                    na minha cidade natal, completamente desorientado e perplexo Eu não tinha a menor ideia de como
-                    tinha chegado ali.- Inicialmente, pensei que tudo não passasse de um sonho, mas ao examinar meus
-                    braços, percebi uma coisa pontos e traços trazem a verdade-
+                    Naquele momento, parecia que eu havia perdido o controle do meu próprio corpo. Logo depois, acordei
+                    na minha cidade natal, completamente desorientado e perplexo. Eu não tinha a menor ideia de como
+                    tinha chegado ali. Inicialmente, pensei que tudo não passasse de um sonho, mas ao examinar meus
+                    braços, percebi uma enigmática marca da qual não fazia a menor ideia do significado.
                 </div>
             </div>
         </div>
@@ -144,8 +179,11 @@ if (isset($_SESSION['user_id'])) {
                         <!-- Ícone de brilho -->
                     </div>
                     <input type="range" id="brightnessSlider" min="30" max="100" value="100">
-
                 </div>
+                <br>
+                <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
+
+                <br>
                 <button class="fechar" id="closeModalSlider">Fechar</button>
             </div>
         </div>
@@ -163,7 +201,7 @@ if (isset($_SESSION['user_id'])) {
             items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
         }
 
-        document.querySelector('.menu-button').onclick = function(e) {
+        document.querySelector('.menu-button').onclick = function (e) {
             e.preventDefault();
             document.querySelector('.circle').classList.toggle('open');
         }
@@ -174,7 +212,7 @@ if (isset($_SESSION['user_id'])) {
 
         function verificarResposta() {
             var rs = document.getElementById("rs").value;
-            if (rs.toLowerCase() === "oi") {
+            if (rs.toLowerCase() === "ESTAMOS EM TODA PARTE" || rs.toLowerCase() === "estamos em toda parte") {
                 window.alert("Resposta correta! Próxima fase...");
                 window.location.href = 'fase5.php';
 
