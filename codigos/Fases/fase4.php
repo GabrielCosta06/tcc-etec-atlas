@@ -98,31 +98,32 @@ if (isset($_SESSION['user_id'])) {
                 </div>
             </div>
         </header>
-        <h2 class="binario">   
-        <div class="g1">01100101 </div> 
-        <div class="g2">01110011</div>
-        <div class="g3">01110100</div>
-        <div class="g4">01100001</div>
-        <div class="g5">01101101</div>
+        <h2 class="binario">
+            <div class="g1">01100101 </div>
+            <div class="g2">01110011</div>
+            <div class="g3">01110100</div>
+            <div class="g4">01100001</div>
+            <div class="g5">01101101</div>
 
-        <div class="g1">01101111 </div>
-        <div class="g2">01110011 </div>
-        <div class="g3">00100000 </div>
-        <div class="g4">01100101 </div>
-        <div class="g5">01101101 </div>
+            <div class="g1">01101111 </div>
+            <div class="g2">01110011 </div>
+            <div class="g3">00100000 </div>
+            <div class="g4">01100101 </div>
+            <div class="g5">01101101 </div>
 
-        <div class="g1">00100000 </div>
-        <div class="g2">01110100 </div>
-        <div class="g3">01101111 </div>
-        <div class="g4">01100100 </div>
-        <div class="g5">01100001 </div>
+            <div class="g1">00100000 </div>
+            <div class="g2">01110100 </div>
+            <div class="g3">01101111 </div>
+            <div class="g4">01100100 </div>
+            <div class="g5">01100001 </div>
 
-        <div class="g1">00100000 </div>
-        <div class="g2">01110000 </div>
-        <div class="g3">01100001 </div>
-        <div class="g4">01110010 </div>
-        <div class="g5">01110100 </div>
-        <div class="g1">01100101  </h2><br><br><br>
+            <div class="g1">00100000 </div>
+            <div class="g2">01110000 </div>
+            <div class="g3">01100001 </div>
+            <div class="g4">01110010 </div>
+            <div class="g5">01110100 </div>
+            <div class="g1">01100101
+        </h2><br><br><br>
 
         <form action="fase4.php" method="post">
             <div class="salvar"> <button type="submit" name="save_progress" class="button">Salvar Progresso</button></div>
@@ -189,8 +190,29 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </div>
 
-
+    <p style="font-size: 20px; margin-top: 55px;" id="countdown"></p>
     <script>
+        var userInputField = document.getElementById('userInput');
+        var countdownElement = document.getElementById('countdown');
+        var timeLeft = 350;
+
+        function updateCountdown() {
+            var minutes = Math.floor(timeLeft / 60);
+            var seconds = timeLeft % 60;
+
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            countdownElement.innerHTML = 'Tempo restante: ' + minutes + ':' + seconds;
+
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateCountdown, 1000);
+            } else {
+                window.location.href = '../Login/destroy_session.php';
+            }
+        }
+
+        updateCountdown();
         // Demo by http://creative-punch.net
 
         var items = document.querySelectorAll('.circle a');
@@ -201,7 +223,7 @@ if (isset($_SESSION['user_id'])) {
             items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
         }
 
-        document.querySelector('.menu-button').onclick = function (e) {
+        document.querySelector('.menu-button').onclick = function(e) {
             e.preventDefault();
             document.querySelector('.circle').classList.toggle('open');
         }

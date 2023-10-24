@@ -75,7 +75,7 @@ if (isset($_SESSION['user_id'])) {
                 <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
             </div>
             <form action="fase5.php" method="post">
-            <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
+                <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
                 <button type="submit" name="save_progress" class="button">Salvar Progresso</button>
             </form>
         </div>
@@ -102,8 +102,29 @@ if (isset($_SESSION['user_id'])) {
 
     </nav>
     </div>
-
+    <p style="font-size: 20px; margin-top: 55px;" id="countdown"></p>
     <script>
+        var userInputField = document.getElementById('userInput');
+        var countdownElement = document.getElementById('countdown');
+        var timeLeft = 350;
+
+        function updateCountdown() {
+            var minutes = Math.floor(timeLeft / 60);
+            var seconds = timeLeft % 60;
+
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            countdownElement.innerHTML = 'Tempo restante: ' + minutes + ':' + seconds;
+
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateCountdown, 1000);
+            } else {
+                window.location.href = '../Login/destroy_session.php';
+            }
+        }
+
+        updateCountdown();
         // Demo by http://creative-punch.net
 
         var items = document.querySelectorAll('.circle a');
