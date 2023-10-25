@@ -106,8 +106,10 @@ if (isset($_SESSION['user_id'])) {
                 </div>
             </div>
         </header>
+
         <h2 class="morse">-. .- --- / - . -- / ...- --- .-.. - .-</h2>
         <br><br><br>
+
         <div class="select">select</div>
 
 
@@ -171,9 +173,31 @@ if (isset($_SESSION['user_id'])) {
             </div>
         </div>
     </div>
-
+    <p style="font-size: 20px;" id="countdown"></p>
 
     <script>
+        var userInputField = document.getElementById('userInput');
+        var countdownElement = document.getElementById('countdown');
+        var timeLeft = 100;
+
+        function updateCountdown() {
+            var minutes = Math.floor(timeLeft / 60);
+            var seconds = timeLeft % 60;
+
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            countdownElement.innerHTML = 'Tempo restante: ' + minutes + ':' + seconds;
+
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateCountdown, 1000);
+            } else {
+                alert('O tempo se esgotou, você perdeu! Tente novamente!');
+                window.location.href = '../Login/destroy_session.php';
+            }
+        }
+
+        updateCountdown();
         // Demo by http://creative-punch.net
 
         var items = document.querySelectorAll('.circle a');
@@ -184,7 +208,7 @@ if (isset($_SESSION['user_id'])) {
             items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
         }
 
-        document.querySelector('.menu-button').onclick = function (e) {
+        document.querySelector('.menu-button').onclick = function(e) {
             e.preventDefault();
             document.querySelector('.circle').classList.toggle('open');
         }

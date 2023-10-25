@@ -15,9 +15,9 @@ if (isset($_SESSION['user_id'])) {
         $sql = "UPDATE users SET progress = '$progress' WHERE user_id = '$userId'";
 
         if ($conn->query($sql) === TRUE) {
-            phpAlert("SUCESSO: Seu progresso foi salvo com sucesso!");
+            echo '<script>alert("Ótimo! Seu progresso foi atualizado com sucesso!")</script>';
         } else {
-            phpAlert("ERRO: Ops... Ocorreu um erro: ") . $conn->error;
+            echo '<script>alert("Ops! Houve um problema ao atualizar o seu progresso: ' . $conn->error . '")</script>';
         }
         $conn->close();
     }
@@ -142,8 +142,31 @@ if (isset($_SESSION['user_id'])) {
 
 
     </div>
+
+    <p style="font-size: 20px;" id="countdown"></p>
     <script>
-        // Demo by http://creative-punch.net
+        var userInputField = document.getElementById('userInput');
+        var countdownElement = document.getElementById('countdown');
+        var timeLeft = 100;
+
+        function updateCountdown() {
+            var minutes = Math.floor(timeLeft / 60);
+            var seconds = timeLeft % 60;
+
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            countdownElement.innerHTML = 'Tempo restante: ' + minutes + ':' + seconds;
+
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateCountdown, 1000);
+            } else {
+                alert('O tempo se esgotou, você perdeu! Tente novamente!');
+                window.location.href = '../Login/destroy_session.php';
+            }
+        }
+
+        updateCountdown();
 
         var items = document.querySelectorAll('.circle a');
 
@@ -164,7 +187,9 @@ if (isset($_SESSION['user_id'])) {
 
         function verificarResposta() {
             var rs = document.getElementById("rs").value;
+
             if (rs.toLowerCase() === "capela de ossos" || rs.toLowerCase() === "CAPELA DE OSSOS"|| rs.toLowerCase() === "capela dos ossos"|| rs.toLowerCase() === "CAPELA DOS OSSOS") {
+
                 window.alert("Resposta correta! Próxima fase...");
                 window.location.href = 'fase3.php';
 

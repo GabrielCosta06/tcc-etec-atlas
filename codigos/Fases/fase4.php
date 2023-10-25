@@ -133,6 +133,7 @@ if (isset($_SESSION['user_id'])) {
 
 
 
+
         <div id="emailModal" class="modaldia2">
             <div class="modal-content">
                 <span class="close" id="closeEmailModalBtn">&times;</span>
@@ -194,9 +195,30 @@ if (isset($_SESSION['user_id'])) {
             </div>
         </div>
 
-
+        <p style="font-size: 20px;" id="countdown"></p>
         <script>
-            // Demo by http://creative-punch.net
+            var userInputField = document.getElementById('userInput');
+            var countdownElement = document.getElementById('countdown');
+            var timeLeft = 100;
+
+            function updateCountdown() {
+                var minutes = Math.floor(timeLeft / 60);
+                var seconds = timeLeft % 60;
+
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                countdownElement.innerHTML = 'Tempo restante: ' + minutes + ':' + seconds;
+
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    setTimeout(updateCountdown, 1000);
+                } else {
+                    alert('O tempo se esgotou, você perdeu! Tente novamente!');
+                    window.location.href = '../Login/destroy_session.php';
+                }
+            }
+
+            updateCountdown();
 
             var items = document.querySelectorAll('.circle a');
 
@@ -204,6 +226,27 @@ if (isset($_SESSION['user_id'])) {
                 items[i].style.left = (50 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
 
                 items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+            }
+
+            document.querySelector('.menu-button').onclick = function (e) {
+                e.preventDefault();
+                document.querySelector('.circle').classList.toggle('open');
+            }
+
+
+
+            //VERIDFICAÇÃO DE RESPOSTA
+
+            function verificarResposta() {
+                var rs = document.getElementById("rs").value;
+                if (rs.toLowerCase() === "ESTAMOS EM TODA PARTE" || rs.toLowerCase() === "estamos em toda parte") {
+                    window.alert("Resposta correta! Próxima fase...");
+                    window.location.href = 'fase5.php';
+
+                } else {
+                    alert("Resposta incorreta!");
+                    location.reload();
+                }
             }
 
             document.querySelector('.menu-button').onclick = function (e) {

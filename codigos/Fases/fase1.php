@@ -36,6 +36,7 @@
         <a class="menu-button fa fa-bars fa-2x"></a>
     </nav>
     <div id="tudo">
+
         <header>
             <p>1</p>
             <div class="navbar">
@@ -142,7 +143,6 @@
         </div>
 
 
-
         <div id="myModalSlider" class="modalSlider">
             <div class="modal-content">
                 <h1 class="conftxt">CONFIGURAÇÕES</h1>
@@ -161,8 +161,33 @@
             </div>
         </div>
     </div>
-
+    <p style="font-size: 20px;" id="countdown"></p>
     <script>
+        var countdownElement = document.getElementById('countdown');
+        var timeLeft = '100';
+
+        function updateCountdown() {
+            var minutes = Math.floor(timeLeft / 60);
+            var seconds = timeLeft % 60;
+
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            countdownElement.innerHTML = 'Tempo restante: ' + minutes + ':' + seconds;
+
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateCountdown, 1000);
+            } else {
+                alert('O tempo se esgotou, você perdeu! Tente novamente!');
+                window.location.href = '../Login/destroy_session.php';
+            }
+        }
+
+        updateCountdown();
+
+
+
+
         //MENU
 
         var items = document.querySelectorAll('.circle a, .circle buttom');
