@@ -164,6 +164,14 @@ button:hover {
   background-color: #69318f;
 }
 
+.tsobre{
+  color: #9669B5;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+}
+
 .modal {
   display: no;
   position: absolute;
@@ -187,9 +195,21 @@ button:hover {
 .close {
   position: absolute;
   top: 0;
-  right: 0;
-  padding: 10px;
+  right: 20px;
+  padding: 0px;
   cursor: pointer;
+  font-size: 40px;
+  z-index: 6;
+}
+
+.close:hover {
+  color: #9669B5;
+  height: 10px;
+}
+
+.close:active {
+  color: rgb(131, 3, 3);
+  height: 10px;
 }
 
 /* Responsividade*/

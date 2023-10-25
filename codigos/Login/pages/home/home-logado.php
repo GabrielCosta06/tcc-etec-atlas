@@ -53,7 +53,7 @@
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <span id="closeModalBtn" class="close">&times;</span>
-                    <h1>SOBRE</h1>
+                    <div class="tsobre"><h1>SOBRE</h1></div>
                     <br>
                     - Nosso TCC tem como base um site de enigmas, com o objetivo de desenvolver um método criativo, que
                     estimula a capacidade cognitiva.​<br><br>
