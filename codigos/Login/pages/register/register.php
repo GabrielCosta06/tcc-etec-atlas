@@ -37,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Registrar</title>
     <link rel="stylesheet" href="register.css">
     <script src="register.js"></script>
+    <link rel="shortcut icon" type="imagex/png" href="./img/incognita.png">
 </head>
 
 <body>

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="home-logado.css">
+    <link rel="shortcut icon" type="imagex/png" href="./Fases/img/incognita.png">
 </head>
 
 <body>

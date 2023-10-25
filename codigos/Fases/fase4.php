@@ -42,6 +42,7 @@ if (isset($_SESSION['user_id'])) {
     <title>Fase 4</title>
     <link rel="stylesheet" href="fase1.css">
     <link rel="stylesheet" href="menu.css">
+    <link rel="shortcut icon" type="imagex/png" href="./img/incognita.png">
     <style>
         .button {
             display: inline-block;
@@ -86,47 +87,51 @@ if (isset($_SESSION['user_id'])) {
         <a class="menu-button fa fa-bars fa-2x"></a>
 
     </nav>
+
+    <form action="fase4.php" method="post">
+        <div class="salvar"> <button type="submit" name="save_progress" class="button">Salvar Progresso</button>
+        </div>
+    </form>
     <div id="tudo">
         <header>
             <p>4</p>
             <div class="navbar">
                 <div class="resposta">
-                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="...">
+                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="Onde estao ?">
 
                     <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
 
                 </div>
             </div>
         </header>
-        <h2 class="binario">   
-        <div class="g1">01100101 </div> 
-        <div class="g2">01110011</div>
-        <div class="g3">01110100</div>
-        <div class="g4">01100001</div>
-        <div class="g5">01101101</div>
+        <h2 class="binario">
+            <div class="g1">01100101 </div>
+            <div class="g2">01110011</div>
+            <div class="g3">01110100</div>
+            <div class="g4">01100001</div>
+            <div class="g5">01101101</div>
 
-        <div class="g1">01101111 </div>
-        <div class="g2">01110011 </div>
-        <div class="g3">00100000 </div>
-        <div class="g4">01100101 </div>
-        <div class="g5">01101101 </div>
+            <div class="g1">01101111 </div>
+            <div class="g2">01110011 </div>
+            <div class="g3">00100000 </div>
+            <div class="g4">01100101 </div>
+            <div class="g5">01101101 </div>
 
-        <div class="g1">00100000 </div>
-        <div class="g2">01110100 </div>
-        <div class="g3">01101111 </div>
-        <div class="g4">01100100 </div>
-        <div class="g5">01100001 </div>
+            <div class="g1">00100000 </div>
+            <div class="g2">01110100 </div>
+            <div class="g3">01101111 </div>
+            <div class="g4">01100100 </div>
+            <div class="g5">01100001 </div>
 
-        <div class="g1">00100000 </div>
-        <div class="g2">01110000 </div>
-        <div class="g3">01100001 </div>
-        <div class="g4">01110010 </div>
-        <div class="g5">01110100 </div>
-        <div class="g1">01100101  </h2><br><br><br>
+            <div class="g1">00100000 </div>
+            <div class="g2">01110000 </div>
+            <div class="g3">01100001 </div>
+            <div class="g4">01110010 </div>
+            <div class="g5">01110100 </div>
+            <div class="g1">01100101</div>
+        </h2><br><br><br>
 
-        <form action="fase4.php" method="post">
-            <div class="salvar"> <button type="submit" name="save_progress" class="button">Salvar Progresso</button></div>
-        </form>
+
 
         <div id="emailModal" class="modaldia2">
             <div class="modal-content">
@@ -181,137 +186,137 @@ if (isset($_SESSION['user_id'])) {
                     <input type="range" id="brightnessSlider" min="30" max="100" value="100">
                 </div>
                 <br>
-                <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
+                <div class="music-player__controls">
+                    <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
+                </div>
+                <div class="Fcenter"> <button class="fechar" id="closeModalSlider">Fechar</button></div>
 
-                <br>
-                <button class="fechar" id="closeModalSlider">Fechar</button>
             </div>
         </div>
-    </div>
 
 
-    <script>
-        // Demo by http://creative-punch.net
+        <script>
+            // Demo by http://creative-punch.net
 
-        var items = document.querySelectorAll('.circle a');
+            var items = document.querySelectorAll('.circle a');
 
-        for (var i = 0, l = items.length; i < l; i++) {
-            items[i].style.left = (50 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+            for (var i = 0, l = items.length; i < l; i++) {
+                items[i].style.left = (50 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
 
-            items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
-        }
-
-        document.querySelector('.menu-button').onclick = function (e) {
-            e.preventDefault();
-            document.querySelector('.circle').classList.toggle('open');
-        }
-
-
-
-        //VERIDFICAÇÃO DE RESPOSTA
-
-        function verificarResposta() {
-            var rs = document.getElementById("rs").value;
-            if (rs.toLowerCase() === "ESTAMOS EM TODA PARTE" || rs.toLowerCase() === "estamos em toda parte") {
-                window.alert("Resposta correta! Próxima fase...");
-                window.location.href = 'fase5.php';
-
-            } else {
-                alert("Resposta incorreta!");
-                location.reload();
+                items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
             }
-        }
 
-        function openPopup() {
-            const windowFeatures = "left=800,top=350,width=320,height=320";
-            window.open('sobre.html', 'popup', windowFeatures);
-        }
-
-        //modalEmail
-        const openEmailModalBtn = document.getElementById("openEmailModalBtn");
-        const emailModal = document.getElementById("emailModal");
-        const closeEmailModalBtn = document.getElementById("closeEmailModalBtn");
-        //modalSlider
-        const openModalButtonSlider = document.getElementById("openModalButtonSlider");
-        const closeModalSlider = document.getElementById("closeModalSlider");
-        const modalSlider = document.getElementById("myModalSlider");
-        const brightnessSlider = document.getElementById("brightnessSlider");
-
-        let isEmailModalDraggable = false;
-
-        // Função para tornar o modal de email arrastável
-        function makeEmailModalDraggable() {
-            emailModal.style.cursor = "grab";
-            emailModal.style.userSelect = "none";
-
-            emailModal.addEventListener("mousedown", startDraggingEmailModal);
-            emailModal.addEventListener("mouseup", stopDraggingEmailModal);
-        }
-
-        // Função para iniciar o arrastamento do modal de email
-        function startDraggingEmailModal(e) {
-            isEmailModalDraggable = true;
-            offsetEmailModalX = e.clientX - emailModal.getBoundingClientRect().left;
-            offsetEmailModalY = e.clientY - emailModal.getBoundingClientRect().top;
-            emailModal.style.cursor = "grabbing";
-        }
-
-        // Função para parar o arrastamento do modal de email
-        function stopDraggingEmailModal() {
-            isEmailModalDraggable = false;
-            emailModal.style.cursor = "grab";
-        }
-
-        // Função para mover o modal de email durante o arrastamento
-        function dragEmailModal(e) {
-            if (isEmailModalDraggable) {
-                emailModal.style.left = e.clientX - offsetEmailModalX + "px";
-                emailModal.style.top = e.clientY - offsetEmailModalY + "px";
+            document.querySelector('.menu-button').onclick = function (e) {
+                e.preventDefault();
+                document.querySelector('.circle').classList.toggle('open');
             }
-        }
-
-        // Event listeners para tornar os modais arrastáveis
-        makeEmailModalDraggable();
-
-        // Event listeners para arrastar os modais
-        document.addEventListener("mousemove", dragEmailModal);
-
-        // Função para abrir o modal de email
-        openEmailModalBtn.addEventListener("click", () => {
-            emailModal.style.display = "block";
-            emailModal.style.opacity = '100%';
-        });
-
-        // Função para fechar o modal de email
-        closeEmailModalBtn.addEventListener("click", () => {
-            emailModal.style.display = "none";
-        });
 
 
 
-        //OPen config
-        openModalButtonSlider.addEventListener("click", () => {
-            modalSlider.style.display = "block";
-            modalSlider.style.opacity = '100%';
-        });
+            //VERIDFICAÇÃO DE RESPOSTA
 
-        closeModalSlider.addEventListener("click", () => {
-            modalSlider.style.display = "none";
-        });
+            function verificarResposta() {
+                var rs = document.getElementById("rs").value;
+                if (rs.toLowerCase() === "ESTAMOS EM TODA PARTE" || rs.toLowerCase() === "estamos em toda parte") {
+                    window.alert("Resposta correta! Próxima fase...");
+                    window.location.href = 'fase5.php';
 
+                } else {
+                    alert("Resposta incorreta!");
+                    location.reload();
+                }
+            }
 
-        //SliderBrilho
-        brightnessSlider.addEventListener("input", () => {
-            const brightnessValue = brightnessSlider.value;
-            document.getElementById("tudo").style.filter = `brightness(${brightnessValue}%)`;
+            function openPopup() {
+                const windowFeatures = "left=800,top=350,width=320,height=320";
+                window.open('sobre.html', 'popup', windowFeatures);
+            }
 
-            const codElements = document.querySelectorAll(".cod");
-            codElements.forEach((element) => {
-                const initialOpacity = 100 - brightnessValue; // Calcula a opacidade inicial
-                element.style.opacity = initialOpacity / 100; // Define a opacidade com base no valor do slider
+            //modalEmail
+            const openEmailModalBtn = document.getElementById("openEmailModalBtn");
+            const emailModal = document.getElementById("emailModal");
+            const closeEmailModalBtn = document.getElementById("closeEmailModalBtn");
+            //modalSlider
+            const openModalButtonSlider = document.getElementById("openModalButtonSlider");
+            const closeModalSlider = document.getElementById("closeModalSlider");
+            const modalSlider = document.getElementById("myModalSlider");
+            const brightnessSlider = document.getElementById("brightnessSlider");
+
+            let isEmailModalDraggable = false;
+
+            // Função para tornar o modal de email arrastável
+            function makeEmailModalDraggable() {
+                emailModal.style.cursor = "grab";
+                emailModal.style.userSelect = "none";
+
+                emailModal.addEventListener("mousedown", startDraggingEmailModal);
+                emailModal.addEventListener("mouseup", stopDraggingEmailModal);
+            }
+
+            // Função para iniciar o arrastamento do modal de email
+            function startDraggingEmailModal(e) {
+                isEmailModalDraggable = true;
+                offsetEmailModalX = e.clientX - emailModal.getBoundingClientRect().left;
+                offsetEmailModalY = e.clientY - emailModal.getBoundingClientRect().top;
+                emailModal.style.cursor = "grabbing";
+            }
+
+            // Função para parar o arrastamento do modal de email
+            function stopDraggingEmailModal() {
+                isEmailModalDraggable = false;
+                emailModal.style.cursor = "grab";
+            }
+
+            // Função para mover o modal de email durante o arrastamento
+            function dragEmailModal(e) {
+                if (isEmailModalDraggable) {
+                    emailModal.style.left = e.clientX - offsetEmailModalX + "px";
+                    emailModal.style.top = e.clientY - offsetEmailModalY + "px";
+                }
+            }
+
+            // Event listeners para tornar os modais arrastáveis
+            makeEmailModalDraggable();
+
+            // Event listeners para arrastar os modais
+            document.addEventListener("mousemove", dragEmailModal);
+
+            // Função para abrir o modal de email
+            openEmailModalBtn.addEventListener("click", () => {
+                emailModal.style.display = "block";
+                emailModal.style.opacity = '100%';
             });
-        });
-    </script>
+
+            // Função para fechar o modal de email
+            closeEmailModalBtn.addEventListener("click", () => {
+                emailModal.style.display = "none";
+            });
+
+
+
+            //OPen config
+            openModalButtonSlider.addEventListener("click", () => {
+                modalSlider.style.display = "block";
+                modalSlider.style.opacity = '100%';
+            });
+
+            closeModalSlider.addEventListener("click", () => {
+                modalSlider.style.display = "none";
+            });
+
+
+            //SliderBrilho
+            brightnessSlider.addEventListener("input", () => {
+                const brightnessValue = brightnessSlider.value;
+                document.getElementById("tudo").style.filter = `brightness(${brightnessValue}%)`;
+
+                const codElements = document.querySelectorAll(".cod");
+                codElements.forEach((element) => {
+                    const initialOpacity = 100 - brightnessValue; // Calcula a opacidade inicial
+                    element.style.opacity = initialOpacity / 100; // Define a opacidade com base no valor do slider
+                });
+            });
+        </script>
 
 </body>
 

@@ -46,6 +46,7 @@ if (isset($_SESSION['user_id'])) {
     <title>Fase 3</title>
     <link rel="stylesheet" href="fase1.css">
     <link rel="stylesheet" href="menu.css">
+    <link rel="shortcut icon" type="imagex/png" href="./img/incognita.png">
     <style>
         .button {
             display: inline-block;
@@ -90,22 +91,23 @@ if (isset($_SESSION['user_id'])) {
         <a class="menu-button fa fa-bars fa-2x"></a>
 
     </nav>
+    <form action="fase4.php" method="post">
+        <div class="salvar"> <button type="submit" name="save_progress" class="button">Salvar Progresso</button></div>
+    </form>
     <div id="tudo">
         <header>
             <p>3</p>
             <div class="navbar">
                 <div class="resposta">
-                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="...">
+                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="há retorno ?">
 
                     <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
 
                 </div>
-                <form action="fase3.php" method="post">
-                    <button type="submit" name="save_progress" class="button">Salvar Progresso</button>
-                </form>
             </div>
         </header>
-        <h2 class="morse">-. .- - --- / - . -- / -- .- .. ... / ... - .- .. ... / ...- --- .- .-.- --- .- .- .- .-  </h2><br><br><br>
+        <h2 class="morse">-. .- --- / - . -- / ...- --- .-.. - .-</h2>
+        <br><br><br>
         <div class="select">select</div>
 
 
@@ -162,10 +164,10 @@ if (isset($_SESSION['user_id'])) {
                     <input type="range" id="brightnessSlider" min="30" max="100" value="100">
                 </div>
                 <br>
-                <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
-
-                <br>
-                <button class="fechar" id="closeModalSlider">Fechar</button>
+                <div class="music-player__controls">
+                    <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
+                </div>
+                <div class="Fcenter"> <button class="fechar" id="closeModalSlider">Fechar</button></div>
             </div>
         </div>
     </div>

@@ -22,7 +22,7 @@ if (isset($_SESSION['user_id'])) {
         $conn->close();
     }
 } else {
-     phpAlert("ERRO: Usuário não está com ID setado na sessão.");
+    phpAlert("ERRO: Usuário não está com ID setado na sessão.");
 }
 ?>
 
@@ -36,6 +36,7 @@ if (isset($_SESSION['user_id'])) {
     <title>Fase 2</title>
     <link rel="stylesheet" href="fase1.css">
     <link rel="stylesheet" href="menu.css">
+    <link rel="shortcut icon" type="imagex/png" href="./img/incognita.png">
     <style>
         .button {
             display: inline-block;
@@ -80,22 +81,22 @@ if (isset($_SESSION['user_id'])) {
         <a class="menu-button fa fa-bars fa-2x"></a>
 
     </nav>
+    <form action="fase4.php" method="post">
+        <div class="salvar"> <button type="submit" name="save_progress" class="button">Salvar Progresso</button></div>
+    </form>
     <div id="tudo">
         <header>
             <p>2</p>
             <div class="navbar">
                 <div class="resposta">
-                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="...">
+                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="O local ?">
 
                     <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
                 </div>
-                <form action="fase2.php" method="post">
-                    <button type="submit" name="save_progress" class="button">Salvar Progresso</button>
-                </form>
-                <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
             </div>
 
         </header>
+
         <i class="fa fa-sun-o sun"><br> luceat</i>
         <h1 class="cod"> 38.56889920928527, -7.908806192879108</h1>
 
@@ -129,9 +130,12 @@ if (isset($_SESSION['user_id'])) {
                         <!-- Ícone de brilho -->
                     </div>
                     <input type="range" id="brightnessSlider" min="30" max="100" value="100">
-
                 </div>
-                <button class="fechar" id="closeModalSlider">Fechar</button>
+                <br>
+                <div class="music-player__controls">
+                    <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
+                </div>
+                <div class="Fcenter"> <button class="fechar" id="closeModalSlider">Fechar</button></div>
             </div>
         </div>
     </div>
@@ -149,7 +153,7 @@ if (isset($_SESSION['user_id'])) {
             items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
         }
 
-        document.querySelector('.menu-button').onclick = function(e) {
+        document.querySelector('.menu-button').onclick = function (e) {
             e.preventDefault();
             document.querySelector('.circle').classList.toggle('open');
         }
@@ -160,7 +164,7 @@ if (isset($_SESSION['user_id'])) {
 
         function verificarResposta() {
             var rs = document.getElementById("rs").value;
-            if (rs.toLowerCase() === "capela de ossos" || rs.toLowerCase() === "capela de ossos") {
+            if (rs.toLowerCase() === "capela de ossos" || rs.toLowerCase() === "CAPELA DE OSSOS"|| rs.toLowerCase() === "capela dos ossos"|| rs.toLowerCase() === "CAPELA DOS OSSOS") {
                 window.alert("Resposta correta! Próxima fase...");
                 window.location.href = 'fase3.php';
 

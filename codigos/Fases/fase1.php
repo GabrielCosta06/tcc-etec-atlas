@@ -8,7 +8,9 @@
     <title>Fase 1</title>
     <link rel="stylesheet" href="fase1.css">
     <link rel="stylesheet" href="menu.css">
+    <link rel="shortcut icon" type="imagex/png" href="./img/incognita.png">
     <script src="fase.js"></script>
+    
 
 </head>
 
@@ -38,11 +40,10 @@
             <p>1</p>
             <div class="navbar">
                 <div class="resposta">
-                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="...">
+                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="Seu nome ?">
 
                     <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
                 </div>
-                <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
             </div>
         </header>
         <div style="display: flex; justify-content: center; margin-top: 2%;">
@@ -151,9 +152,12 @@
                         <!-- Ícone de brilho -->
                     </div>
                     <input type="range" id="brightnessSlider" min="30" max="100" value="100">
-
                 </div>
-                <button class="fechar" id="closeModalSlider">Fechar</button>
+                <br>
+                <div class="music-player__controls">
+                    <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
+                </div>
+                <div class="Fcenter"> <button class="fechar" id="closeModalSlider">Fechar</button></div>
             </div>
         </div>
     </div>

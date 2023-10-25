@@ -40,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Painel de Login</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" type="imagex/png" href="./Fases/img/incognita.png">
     <script src="index.js"></script>
 </head>
 
