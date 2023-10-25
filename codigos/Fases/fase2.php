@@ -147,7 +147,7 @@ if (isset($_SESSION['user_id'])) {
     <script>
         var userInputField = document.getElementById('userInput');
         var countdownElement = document.getElementById('countdown');
-        var timeLeft = 100;
+        var timeLeft = 120;
 
         function updateCountdown() {
             var minutes = Math.floor(timeLeft / 60);
@@ -188,14 +188,13 @@ if (isset($_SESSION['user_id'])) {
         function verificarResposta() {
             var rs = document.getElementById("rs").value;
 
-            if (rs.toLowerCase() === "capela de ossos" || rs.toLowerCase() === "CAPELA DE OSSOS"|| rs.toLowerCase() === "capela dos ossos"|| rs.toLowerCase() === "CAPELA DOS OSSOS") {
+            if (rs.toLowerCase() === "capela de ossos" || rs.toLowerCase() === "CAPELA DE OSSOS"|| rs.toLowerCase() === "capela dos ossos"|| rs.toLowerCase() === "CAPELA DOS OSSOS" || rs.toLowerCase() === "a capela de ossos") {
 
                 window.alert("Resposta correta! Próxima fase...");
                 window.location.href = 'fase3.php';
 
             } else {
                 alert("Resposta incorreta!");
-                location.reload();
             }
         }
 

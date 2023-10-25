@@ -19,7 +19,7 @@ if (isset($_SESSION['user_id'])) {
 
         if ($conn->query($sql) === TRUE) {
             // Converto o comando echo do PHP em um alerta em JavaScript
-            echo '<script>alert("Progresso atualizado com sucesso!")</script>';
+            echo '<script>alert("Ótimo! Seu progresso foi atualizado com sucesso!")</script>';
         } else {
             // Converto o comando echo do PHP em um alerta em JavaScript
             echo '<script>alert("Erro ao atualizar o registro: ' . $conn->error . '")</script>';
@@ -203,7 +203,7 @@ if (isset($_SESSION['user_id'])) {
     <script>
         var userInputField = document.getElementById('userInput');
         var countdownElement = document.getElementById('countdown');
-        var timeLeft = 100;
+        var timeLeft = 120;
 
         function updateCountdown() {
             var minutes = Math.floor(timeLeft / 60);
@@ -250,7 +250,6 @@ if (isset($_SESSION['user_id'])) {
 
             } else {
                 alert("Resposta incorreta!");
-                location.reload();
             }
         }
 

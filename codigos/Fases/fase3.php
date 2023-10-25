@@ -178,7 +178,7 @@ if (isset($_SESSION['user_id'])) {
     <script>
         var userInputField = document.getElementById('userInput');
         var countdownElement = document.getElementById('countdown');
-        var timeLeft = 100;
+        var timeLeft = 120;
 
         function updateCountdown() {
             var minutes = Math.floor(timeLeft / 60);
@@ -225,7 +225,6 @@ if (isset($_SESSION['user_id'])) {
 
             } else {
                 alert("Resposta incorreta!");
-                location.reload();
             }
         }
 

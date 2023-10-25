@@ -164,7 +164,7 @@
     <p style="font-size: 20px;" id="countdown"></p>
     <script>
         var countdownElement = document.getElementById('countdown');
-        var timeLeft = '100';
+        var timeLeft = '120';
 
         function updateCountdown() {
             var minutes = Math.floor(timeLeft / 60);
@@ -215,7 +215,6 @@
 
             } else {
                 alert("Resposta incorreta!");
-                location.reload();
             }
         }
 
