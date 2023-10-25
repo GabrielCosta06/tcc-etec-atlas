@@ -39,7 +39,7 @@
             <p>1</p>
             <div class="navbar">
                 <div class="resposta">
-                    <input type="text" id="userInput" class="rs" id="rs" autocomplete="off" placeholder="...">
+                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="...">
 
                     <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
                 </div>
@@ -157,11 +157,10 @@
             </div>
         </div>
     </div>
-    <p style="font-size: 20px; margin-top: 55px;" id="countdown"></p>
+    <p style="font-size: 20px;" id="countdown"></p>
     <script>
-        var userInputField = document.getElementById('userInput');
         var countdownElement = document.getElementById('countdown');
-        var timeLeft = 350;
+        var timeLeft = '100';
 
         function updateCountdown() {
             var minutes = Math.floor(timeLeft / 60);
@@ -175,6 +174,7 @@
                 timeLeft--;
                 setTimeout(updateCountdown, 1000);
             } else {
+                alert('O tempo se esgotou, você perdeu! Tente novamente!');
                 window.location.href = '../Login/destroy_session.php';
             }
         }

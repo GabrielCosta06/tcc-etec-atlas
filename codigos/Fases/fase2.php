@@ -139,11 +139,11 @@ if (isset($_SESSION['user_id'])) {
 
     </div>
 
-    <p style="font-size: 20px; margin-top: 55px;" id="countdown"></p>
+    <p style="font-size: 20px;" id="countdown"></p>
     <script>
         var userInputField = document.getElementById('userInput');
         var countdownElement = document.getElementById('countdown');
-        var timeLeft = 350;
+        var timeLeft = 100;
 
         function updateCountdown() {
             var minutes = Math.floor(timeLeft / 60);
@@ -157,6 +157,7 @@ if (isset($_SESSION['user_id'])) {
                 timeLeft--;
                 setTimeout(updateCountdown, 1000);
             } else {
+                alert('O tempo se esgotou, você perdeu! Tente novamente!');
                 window.location.href = '../Login/destroy_session.php';
             }
         }
