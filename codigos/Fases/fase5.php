@@ -74,20 +74,6 @@ if (isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-    <header>
-        <p>5</p>
-        <div class="navbar">
-            <div class="resposta">
-                <input type="text" class="rs" id="rs" autocomplete="off" placeholder="...">
-
-                <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
-            </div>
-            <form action="fase5.php" method="post">
-                <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
-                <button type="submit" name="save_progress" class="button">Salvar Progresso</button>
-            </form>
-        </div>
-    </header>
     <nav class="circular-menu">
         <div class="circle">
             <a id="openModalButtonSlider" class="fa fa-gear fa-2x"></a>
@@ -131,9 +117,10 @@ if (isset($_SESSION['user_id'])) {
 
         <div class="tudo">
             <div style="display: flex; justify-content: center; margin-top: 2%;">
-                <p>B SFTQPTUB FTUÁ OPT DÓEJHPT</p>
+                <p>B SFTQPTUB FTUÁ OPT DÓEJHPT</p> <br> <br>
+                <p style="margin-top: 7%; font-size: smaller;" >Julio César</p>
             </div>
-            <p>Julio César</p>
+            
         </div>
 
 
@@ -198,12 +185,13 @@ if (isset($_SESSION['user_id'])) {
 
             </div>
         </div>
+        <p style="font-size: 20px; margin-top:150px;" id="countdown"></p>
     </div>
-    <p style="font-size: 20px;" id="countdown"></p>
+    
     <script>
         var userInputField = document.getElementById('userInput');
         var countdownElement = document.getElementById('countdown');
-        var timeLeft = 120;
+        var timeLeft = 300;
 
         function updateCountdown() {
             var minutes = Math.floor(timeLeft / 60);

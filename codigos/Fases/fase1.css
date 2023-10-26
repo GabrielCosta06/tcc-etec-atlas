@@ -393,7 +393,7 @@ div.salvar {
     }
 
     .binario {
-        font-size: 12PX;
+        font-size: 10PX;
     }
     .modalSlider {
         top: 25vh;
@@ -429,10 +429,9 @@ div.salvar {
 .binario {
     display: flex;
     justify-content: center;
-    font-size: 15px;
+    font-size: 10px;
     color: white;
     word-wrap: break-word;
-    font-size: 15PX;
 }
 
 .g1 {

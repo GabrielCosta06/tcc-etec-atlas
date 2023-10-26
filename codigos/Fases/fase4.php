@@ -104,7 +104,7 @@ if (isset($_SESSION['user_id'])) {
                 </div>
             </div>
         </header>
-        <h2 class="binario">
+        <h2 class="binario" style="font-size:10px;">
             <div class="g1">01100101 </div>
             <div class="g2">01110011</div>
             <div class="g3">01110100</div>
@@ -199,7 +199,7 @@ if (isset($_SESSION['user_id'])) {
         <script>
             var userInputField = document.getElementById('userInput');
             var countdownElement = document.getElementById('countdown');
-            var timeLeft = 120;
+            var timeLeft = 300;
 
             function updateCountdown() {
                 var minutes = Math.floor(timeLeft / 60);
