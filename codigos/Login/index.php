@@ -2,7 +2,8 @@
 session_start();
 require_once 'db_connect.php';
 
-function phpAlert($msg) {
+function phpAlert($msg)
+{
     echo '<script type="text/javascript">alert("' . $msg . '")</script>';
 }
 
@@ -13,13 +14,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "SELECT * FROM users WHERE email='$email'";
     $result = $conn->query($sql);
 
+
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
+            phpAlert('Logado com sucesso! Redirecionando...');
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['email'] = $email;
             $_SESSION['progress'] = $row['progress'];
-
             header("Location: ./pages/home/home-logado.php");
             exit;
         } else {
@@ -41,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Painel de Login</title>
     <link rel="stylesheet" href="index.css">
     <link rel="shortcut icon" type="imagex/png" href="./Fases/img/incognita.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <script src="index.js"></script>
 </head>
 
@@ -62,9 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="inputBox">
                     <input type="password" name="password" id="password" required value="">
                     <label>Senha</label>
+                    <i class="far fa-eye" style="cursor: pointer; margin-bottom: 10px;" id="togglePassword"></i>
                 </div>
-                <button type="button" class="clear" id="recover-password-button" disabled="true">Recuperar
-                    senha</button>
+                <button type="button" class="clear" id="recover-password-button" disabled="true">Recuperar senha</button>
                 <button type="submit" class="solid" id="login-button">Login</button>
                 <button style="background: transparent; border: none; box-shadow: none; color: white;" type="button" class="outline" onclick="irRegistrar()">Registrar</button>
             </form>

@@ -41,7 +41,7 @@
             <p>1</p>
             <div class="navbar">
                 <div class="resposta">
-                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="Seu nome ?">
+                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="Dica: Seu nome?">
 
                     <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
                 </div>
@@ -161,10 +161,39 @@
             </div>
         </div>
     </div>
-    <p style="font-size: 20px;" id="countdown"></p>
+    <p style="font-size: 20px;" id="timer"></p>
     <script>
-        var countdownElement = document.getElementById('countdown');
-        var timeLeft = '300';
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function deleteCookie(cname) {
+            document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+
+        var timerElement = document.getElementById('timer');
+        var storedTimeLeft = getCookie('timer');
+        var timeLeft = storedTimeLeft ? parseInt(storedTimeLeft) : 900; // Set to 90 seconds by default or fetch from cookie
+        var intervalId;
 
         function updateCountdown() {
             var minutes = Math.floor(timeLeft / 60);
@@ -172,18 +201,26 @@
 
             seconds = seconds < 10 ? '0' + seconds : seconds;
 
-            countdownElement.innerHTML = 'Tempo restante: ' + minutes + ':' + seconds;
+            timerElement.innerHTML = 'Tempo: ' + minutes + ':' + seconds;
 
             if (timeLeft > 0) {
+                setCookie('timer', timeLeft, 1); // Save the timer value in cookie every second
                 timeLeft--;
-                setTimeout(updateCountdown, 1000);
             } else {
-                alert('O tempo se esgotou, você perdeu! Tente novamente!');
+                clearInterval(intervalId); // Clear the interval when the timer runs out
+                alert('Que pena, o tempo se esgotou!');
+                deleteCookie('timer');
                 window.location.href = '../Login/destroy_session.php';
             }
         }
 
-        updateCountdown();
+        // Clear the previous interval when the page reloads
+        window.onload = function () {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+            intervalId = setInterval(updateCountdown, 1000);
+        };
 
 
 

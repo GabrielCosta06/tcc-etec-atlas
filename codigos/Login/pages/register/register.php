@@ -16,10 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
 //se senhas coincidem, insere na tabela
         $sql = "INSERT INTO users (email, password) VALUES ('$email', '$password')";
-//caso haja inserção de dados na tabela, então redireciona para home-logado.php
+//caso haja inserção de dados na tabela, então redireciona para página de login
         if ($conn->query($sql) === TRUE) {
             $_SESSION['email'] = $email;
-            header("Location: ../../index.php"); // Redirect to the welcome page after registration
+            phpAlert('Registro efetuado com sucesso!');
+            header("Location: ../../index.php");
             exit();
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
@@ -58,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="inputBox">
                     <input type="password" name="password" id="password" autocomplete="off" required value="">
+                    <i class="far fa-eye" style="cursor: pointer; margin-bottom: 10px;" id="togglePassword"></i>
                     <label>Senha</label>
                 </div>
                 <div class="inputBox">

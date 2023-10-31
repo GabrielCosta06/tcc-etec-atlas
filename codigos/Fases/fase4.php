@@ -1,32 +1,37 @@
 <?php
-// Iniciando a sessão para garantir que o usuário esteja conectado
+// Iniciando a sessão para manter o controle do usuário logado
 session_start();
 
-// Certificando de que a variável de sessão está definida antes de acessá-la
+// Garantindo que o meu ID de usuário esteja definido antes de usá-lo
 if (isset($_SESSION['user_id'])) {
+    // Capturando o meu ID de usuário da sessão para referência futura
     $userId = $_SESSION['user_id'];
 
-    // Estabelecendo uma conexão com o banco de dados antes de usar a variável $conn
+    // Preciso estabelecer uma conexão com o banco de dados antes de fazer qualquer alteração nele
     require_once '../Login/db_connect.php';
 
+    // Se o método da requisição for POST, posso prosseguir com a atualização do meu progresso
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $progress = 4; // ou qualquer outro valor apropriado que você deseja atribuir
+        // Vou definir o valor do meu progresso como 3 para marcar o avanço
+        $progress = 4; // ou qualquer outro valor apropriado que eu queira atribuir
 
-        // Consulta SQL para atualizar o valor do progresso para o usuário
+        // Agora, vou executar uma consulta SQL para atualizar o meu progresso no banco de dados
         $sql = "UPDATE users SET progress = '$progress' WHERE user_id = '$userId'";
 
+        // Verifico se a atualização foi realizada com sucesso ou se houve algum erro
         if ($conn->query($sql) === TRUE) {
-            // Convertendo o comando echo do PHP em um alerta em JavaScript
+            // Vou imprimir um alerta para mim mesmo para confirmar que o progresso foi atualizado com sucesso
             echo '<script>alert("Ótimo! Seu progresso foi atualizado com sucesso!")</script>';
         } else {
-            // Convertendo o comando echo do PHP em um alerta em JavaScript
-            echo '<script>alert("Erro ao atualizar o registro: ' . $conn->error . '")</script>';
+            // Se algo der errado, quero ser notificado com um alerta indicando o problema
+            echo '<script>alert("Ops! Houve um problema ao atualizar o seu progresso: ' . $conn->error . '")</script>';
         }
+        // Terminado o processo, posso fechar a conexão com o banco de dados
         $conn->close();
     }
 } else {
-    // Convertendo o comando echo do PHP em um alerta em JavaScript
-    echo '<script>alert("ID do usuário não definido na sessão.")</script>';
+    // Se meu ID de usuário não estiver definido na sessão, devo receber um alerta para verificar o problema
+    echo '<script>alert("Parece que seu ID de usuário não está definido na sessão. Verifique e tente novamente.")</script>';
 }
 ?>
 
@@ -97,7 +102,7 @@ if (isset($_SESSION['user_id'])) {
             <p>4</p>
             <div class="navbar">
                 <div class="resposta">
-                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="Onde estao ?">
+                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="Dica: Onde estao?">
 
                     <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
 
@@ -195,28 +200,66 @@ if (isset($_SESSION['user_id'])) {
             </div>
         </div>
 
-        <p style="font-size: 20px;" id="countdown"></p>
+        <p style="font-size: 20px;" id="timer"></p>
         <script>
-            var userInputField = document.getElementById('userInput');
-            var countdownElement = document.getElementById('countdown');
-            var timeLeft = 300;
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
 
-            function updateCountdown() {
-                var minutes = Math.floor(timeLeft / 60);
-                var seconds = timeLeft % 60;
-
-                seconds = seconds < 10 ? '0' + seconds : seconds;
-
-                countdownElement.innerHTML = 'Tempo restante: ' + minutes + ':' + seconds;
-
-                if (timeLeft > 0) {
-                    timeLeft--;
-                    setTimeout(updateCountdown, 1000);
-                } else {
-                    alert('O tempo se esgotou, você perdeu! Tente novamente!');
-                    window.location.href = '../Login/destroy_session.php';
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
                 }
             }
+            return "";
+        }
+
+        function deleteCookie(cname) {
+            document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+
+        var timerElement = document.getElementById('timer');
+        var storedTimeLeft = getCookie('timer');
+        var timeLeft = storedTimeLeft ? parseInt(storedTimeLeft) : 900; // Set to 90 seconds by default or fetch from cookie
+        var intervalId;
+
+        function updateCountdown() {
+            var minutes = Math.floor(timeLeft / 60);
+            var seconds = timeLeft % 60;
+
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            timerElement.innerHTML = 'Tempo: ' + minutes + ':' + seconds;
+
+            if (timeLeft > 0) {
+                setCookie('timer', timeLeft, 1); // Save the timer value in cookie every second
+                timeLeft--;
+            } else {
+                clearInterval(intervalId); // Clear the interval when the timer runs out
+                alert('Que pena, o tempo se esgotou!');
+                deleteCookie('timer');
+                window.location.href = '../Login/destroy_session.php';
+            }
+        }
+
+        // Clear the previous interval when the page reloads
+        window.onload = function () {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+            intervalId = setInterval(updateCountdown, 1000);
+        };
 
             updateCountdown();
 
