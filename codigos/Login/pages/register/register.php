@@ -2,7 +2,8 @@
 session_start();
 require_once '../../db_connect.php';
 
-function phpAlert($msg) {
+function phpAlert($msg)
+{
     echo '<script type="text/javascript">alert("' . $msg . '")</script>';
 }
 
@@ -10,13 +11,13 @@ function phpAlert($msg) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-//checando se as senhas coincidem
+    //checando se as senhas coincidem
     if ($_POST['password'] != $_POST['confirmPassword']) {
         phpAlert('As senhas não coincidem!');
     } else {
-//se senhas coincidem, insere na tabela
+        //se senhas coincidem, insere na tabela
         $sql = "INSERT INTO users (email, password) VALUES ('$email', '$password')";
-//caso haja inserção de dados na tabela, então redireciona para página de login
+        //caso haja inserção de dados na tabela, então redireciona para página de login
         if ($conn->query($sql) === TRUE) {
             $_SESSION['email'] = $email;
             phpAlert('Registro efetuado com sucesso!');
@@ -37,8 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <title>Registrar</title>
     <link rel="stylesheet" href="register.css">
-    <script src="register.js"></script>
     <link rel="shortcut icon" type="imagex/png" href="./img/incognita.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 </head>
 
 <body>
@@ -59,18 +60,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="inputBox">
                     <input type="password" name="password" id="password" autocomplete="off" required value="">
-                    <i class="far fa-eye" style="cursor: pointer; margin-bottom: 10px;" id="togglePassword"></i>
                     <label>Senha</label>
+                    <i class="far fa-eye"
+                        style="cursor: pointer; position: absolute; top: 50%; right: 10px; transform: translateY(-150%);"
+                        id="togglePassword"></i>
                 </div>
+
                 <div class="inputBox">
-                    <input type="password" name="confirmPassword" id="confirmPassword" autocomplete="off" required value="">
+                    <input type="password" name="confirmPassword" id="confirmPassword" autocomplete="off" required
+                        value="">
                     <label>Confirmar senha</label>
                 </div>
                 <button type="submit" class="solid" id="register-button">Registrar</button>
-                <button style="background: transparent; border: none; box-shadow: none; color: white;" type="button" class="clear" onclick="irLogin()">Login</button>
+                <button style="background: transparent; border: none; box-shadow: none; color: white;" type="button"
+                    class="clear" onclick="irLogin()">Login</button>
             </form>
         </div>
     </div>
+    <script src="register.js"></script>
 </body>
 
 </html>

@@ -44,7 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="index.css">
     <link rel="shortcut icon" type="imagex/png" href="./Fases/img/incognita.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-    <script src="index.js"></script>
 </head>
 
 <body>
@@ -63,9 +62,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label>E-mail</label>
                 </div>
                 <div class="inputBox">
-                    <input type="password" name="password" id="password" required value="">
+                    <input type="password" name="password" id="password" autocomplete="off" required value="">
                     <label>Senha</label>
-                    <i class="far fa-eye" style="cursor: pointer; margin-bottom: 10px;" id="togglePassword"></i>
+                    <i class="far fa-eye"
+                        style="cursor: pointer; position: absolute; top: 50%; right: 10px; transform: translateY(-150%);"
+                        id="togglePassword"></i>
                 </div>
                 <button type="button" class="clear" id="recover-password-button" disabled="true">Recuperar senha</button>
                 <button type="submit" class="solid" id="login-button">Login</button>
@@ -73,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
+    <script src="index.js"></script>
 </body>
 
 </html>
