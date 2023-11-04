@@ -17,10 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         //se senhas coincidem, insere na tabela
         $sql = "INSERT INTO users (email, password) VALUES ('$email', '$password')";
+        phpAlert('Registro efetuado com sucesso!');
         //caso haja inserção de dados na tabela, então redireciona para página de login
         if ($conn->query($sql) === TRUE) {
             $_SESSION['email'] = $email;
-            phpAlert('Registro efetuado com sucesso!');
             header("Location: ../../index.php");
             exit();
         } else {
@@ -61,19 +61,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="inputBox">
                     <input type="password" name="password" id="password" autocomplete="off" required value="">
                     <label>Senha</label>
-                    <i class="far fa-eye"
-                        style="cursor: pointer; position: absolute; top: 50%; right: 10px; transform: translateY(-150%);"
-                        id="togglePassword"></i>
+                    <i class="far fa-eye" style="cursor: pointer; position: absolute; top: 50%; right: 10px; transform: translateY(-150%);" id="togglePassword"></i>
                 </div>
 
                 <div class="inputBox">
-                    <input type="password" name="confirmPassword" id="confirmPassword" autocomplete="off" required
-                        value="">
+                    <input type="password" name="confirmPassword" id="confirmPassword" autocomplete="off" required value="">
                     <label>Confirmar senha</label>
+                    <i class="far fa-eye" style="cursor: pointer; position: absolute; top: 50%; right: 10px; transform: translateY(-150%);" id="toggleConfirmPassword"></i>
                 </div>
                 <button type="submit" class="solid" id="register-button">Registrar</button>
-                <button style="background: transparent; border: none; box-shadow: none; color: white;" type="button"
-                    class="clear" onclick="irLogin()">Login</button>
+                <button style="background: transparent; border: none; box-shadow: none; color: white;" type="button" class="clear" onclick="irLogin()">Login</button>
             </form>
         </div>
     </div>

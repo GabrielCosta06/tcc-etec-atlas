@@ -48,7 +48,7 @@
                             <button id="openModalBtn">Sobre</button>
                         </div>
                     </div>
-                </div>
+                </div>  
             </div>
             <div id="modal" class="modal">
                 <div class="modal-content">
