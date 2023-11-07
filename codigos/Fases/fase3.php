@@ -6,6 +6,9 @@ session_start();
 if (isset($_SESSION['user_id'])) {
     // Capturando o meu ID de usuário da sessão para referência futura
     $userId = $_SESSION['user_id'];
+    if (isset($_SESSION['name'])) {
+        $name = $_SESSION['name'];
+    }
 
     // Preciso estabelecer uma conexão com o banco de dados antes de fazer qualquer alteração nele
     require_once '../Login/db_connect.php';
@@ -99,7 +102,7 @@ if (isset($_SESSION['user_id'])) {
             <p>3</p>
             <div class="navbar">
                 <div class="resposta">
-                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="Dica: há retorno?">
+                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="Dica: há volta?">
 
                     <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
 
@@ -174,6 +177,10 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </div>
     <p style="font-size: 20px;" id="timer"></p>
+    <br>
+    <p style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
+            <?php echo $name ?>
+        </span></p>
 
     <script>
         function setCookie(cname, cvalue, exdays) {
@@ -234,7 +241,6 @@ if (isset($_SESSION['user_id'])) {
             }
             intervalId = setInterval(updateCountdown, 1000);
         };
-
         var items = document.querySelectorAll('.circle a');
 
         for (var i = 0, l = items.length; i < l; i++) {
@@ -243,7 +249,7 @@ if (isset($_SESSION['user_id'])) {
             items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
         }
 
-        document.querySelector('.menu-button').onclick = function(e) {
+        document.querySelector('.menu-button').onclick = function (e) {
             e.preventDefault();
             document.querySelector('.circle').classList.toggle('open');
         }

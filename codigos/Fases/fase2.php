@@ -6,6 +6,9 @@ session_start();
 if (isset($_SESSION['user_id'])) {
     // Capturando o meu ID de usuário da sessão para referência futura
     $userId = $_SESSION['user_id'];
+    if (isset($_SESSION['name'])) {
+        $name = $_SESSION['name'];
+    }
 
     // Preciso estabelecer uma conexão com o banco de dados antes de fazer qualquer alteração nele
     require_once '../Login/db_connect.php';
@@ -28,9 +31,10 @@ if (isset($_SESSION['user_id'])) {
                 // Se algo der errado, quero ser notificado com um alerta indicando o problema
                 echo '<script>alert("Ops! Houve um problema ao atualizar o seu progresso: ' . $conn->error . '")</script>';
             }
+
             // Terminado o processo, posso fechar a conexão com o banco de dados
             $conn->close();
-    }
+        }
     }
 } else {
     // Se meu ID de usuário não estiver definido na sessão, devo receber um alerta para verificar o problema
@@ -156,6 +160,10 @@ if (isset($_SESSION['user_id'])) {
     </div>
 
     <p style="font-size: 20px;" id="timer"></p>
+    <br>
+    <p style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
+            <?php echo $name ?>
+        </span></p>
     <script>
         function setCookie(cname, cvalue, exdays) {
             var d = new Date();
@@ -215,8 +223,6 @@ if (isset($_SESSION['user_id'])) {
             }
             intervalId = setInterval(updateCountdown, 1000);
         };
-
-
         var items = document.querySelectorAll('.circle a');
 
         for (var i = 0, l = items.length; i < l; i++) {
@@ -237,7 +243,7 @@ if (isset($_SESSION['user_id'])) {
         function verificarResposta() {
             var rs = document.getElementById("rs").value;
 
-            if (rs.toLowerCase() === "capela de ossos" || rs.toLowerCase() === "CAPELA DE OSSOS"|| rs.toLowerCase() === "capela dos ossos"|| rs.toLowerCase() === "CAPELA DOS OSSOS" || rs.toLowerCase() === "a capela de ossos") {
+            if (rs.toLowerCase() === "capela de ossos" || rs.toLowerCase() === "CAPELA DE OSSOS" || rs.toLowerCase() === "capela dos ossos" || rs.toLowerCase() === "CAPELA DOS OSSOS" || rs.toLowerCase() === "a capela de ossos") {
 
                 window.alert("Resposta correta! Próxima fase...");
                 window.location.href = 'fase3.php';

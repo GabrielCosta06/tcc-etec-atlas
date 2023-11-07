@@ -20,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $row['password'])) {
             phpAlert('Logado com sucesso! Redirecionando...');
             $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['name'] = $row['name'];
             $_SESSION['email'] = $email;
             $_SESSION['progress'] = $row['progress'];
             header("Location: ./pages/home/home-logado.php");
