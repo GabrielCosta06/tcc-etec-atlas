@@ -6,6 +6,9 @@ session_start();
 if (isset($_SESSION['user_id'])) {
     // Capturando o meu ID de usuário da sessão para referência futura
     $userId = $_SESSION['user_id'];
+    if (isset($_SESSION['name'])) {
+        $name = $_SESSION['name'];
+    }
 
     // Preciso estabelecer uma conexão com o banco de dados antes de fazer qualquer alteração nele
     require_once '../Login/db_connect.php';
@@ -102,7 +105,7 @@ if (isset($_SESSION['user_id'])) {
             <p>4</p>
             <div class="navbar">
                 <div class="resposta">
-                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="Dica: Onde estao?">
+                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="Dica: Onde estão?">
 
                     <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
 
@@ -201,67 +204,70 @@ if (isset($_SESSION['user_id'])) {
         </div>
 
         <p style="font-size: 20px;" id="timer"></p>
+        <br>
+        <p style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
+                <?php echo $name ?>
+            </span></p>
         <script>
-        function setCookie(cname, cvalue, exdays) {
-            var d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            var expires = "expires=" + d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        }
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                var expires = "expires=" + d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
 
-        function getCookie(cname) {
-            var name = cname + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var ca = decodedCookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
+            function getCookie(cname) {
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
                 }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
+                return "";
+            }
+
+            function deleteCookie(cname) {
+                document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            }
+
+            var timerElement = document.getElementById('timer');
+            var storedTimeLeft = getCookie('timer');
+            var timeLeft = storedTimeLeft ? parseInt(storedTimeLeft) : 900; // Set to 90 seconds by default or fetch from cookie
+            var intervalId;
+
+            function updateCountdown() {
+                var minutes = Math.floor(timeLeft / 60);
+                var seconds = timeLeft % 60;
+
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                timerElement.innerHTML = 'Tempo: ' + minutes + ':' + seconds;
+
+                if (timeLeft > 0) {
+                    setCookie('timer', timeLeft, 1); // Save the timer value in cookie every second
+                    timeLeft--;
+                } else {
+                    clearInterval(intervalId); // Clear the interval when the timer runs out
+                    alert('Que pena, o tempo se esgotou!');
+                    deleteCookie('timer');
+                    window.location.href = '../Login/destroy_session.php';
                 }
             }
-            return "";
-        }
 
-        function deleteCookie(cname) {
-            document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        }
+            // Clear the previous interval when the page reloads
+            window.onload = function () {
+                if (intervalId) {
+                    clearInterval(intervalId);
+                }
+                intervalId = setInterval(updateCountdown, 1000);
+            };
 
-        var timerElement = document.getElementById('timer');
-        var storedTimeLeft = getCookie('timer');
-        var timeLeft = storedTimeLeft ? parseInt(storedTimeLeft) : 900; // Set to 90 seconds by default or fetch from cookie
-        var intervalId;
-
-        function updateCountdown() {
-            var minutes = Math.floor(timeLeft / 60);
-            var seconds = timeLeft % 60;
-
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-
-            timerElement.innerHTML = 'Tempo: ' + minutes + ':' + seconds;
-
-            if (timeLeft > 0) {
-                setCookie('timer', timeLeft, 1); // Save the timer value in cookie every second
-                timeLeft--;
-            } else {
-                clearInterval(intervalId); // Clear the interval when the timer runs out
-                alert('Que pena, o tempo se esgotou!');
-                deleteCookie('timer');
-                window.location.href = '../Login/destroy_session.php';
-            }
-        }
-
-        // Clear the previous interval when the page reloads
-        window.onload = function () {
-            if (intervalId) {
-                clearInterval(intervalId);
-            }
-            intervalId = setInterval(updateCountdown, 1000);
-        };
-
-            updateCountdown();
 
             var items = document.querySelectorAll('.circle a');
 

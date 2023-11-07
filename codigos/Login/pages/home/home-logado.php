@@ -1,3 +1,49 @@
+<?php
+session_start();
+require_once '../../db_connect.php';
+
+if (isset($_SESSION['name'])) {
+    $name = $_SESSION['name'];
+} else {
+    header("Location: ../../index.php");
+    exit();
+}
+
+$conn->close();
+
+
+function phpAlert($msg)
+{
+    echo '<script type="text/javascript">alert("' . $msg . '")</script>';
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST['logout'])) {
+        // Unset all of the session variables
+        $_SESSION = array();
+
+        // Destroy the session.
+        session_destroy();
+
+        phpAlert('Você deslogou com sucesso!');
+        // Redirect to the login page or any other page after logout
+        header("Location: ../../index.php");
+        exit;
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        if (isset($_POST['jogar'])) {
+            if (isset($_SESSION['progress'])) {
+                $savedProgress = $_SESSION['progress'];
+                $page = "fase" . $savedProgress . ".php";
+                header("Location: ../../../Fases/" . $page);
+                exit;
+            }
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -13,18 +59,18 @@
     <main>
         <header>
             <div class="max-width">
-                <h1>Atlas</h1>
+                <h1>Atlas</h1>  
                 <div class="login-texto">
-                    <ul>
-                        <li><a href="#">Bem-vindo(a)!</a></li>
+                    <ul style="display: flex;">
+                        <li><a href="#">Bem-vindo(a): <br><a style="font-size: 18px; text-decoration: none; font-weight: lighter;" href="#"><?php echo $name; ?></a></a></li>
                         <li><a href="#">
                                 <form action="home-logado.php" method="post">
-                                    <button class="botao-sair" type="submit" name="logout" class="clear">Sair</button>
+                                    <button class="botao-sair" type="submit" name="logout">Sair</button>
                                 </form>
                             </a></li>
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
-            </div>
         </header>
 
         <section class="content1">
@@ -48,56 +94,24 @@
                             <button id="openModalBtn">Sobre</button>
                         </div>
                     </div>
-                </div>  
+                </div>
             </div>
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <span id="closeModalBtn" class="close">&times;</span>
-                    <div class="tsobre"><h1>SOBRE</h1></div>
+                    <div class="tsobre">
+                        <h1>SOBRE</h1>
+                    </div>
                     <br>
                     - Nosso TCC tem como base um site de enigmas, com o objetivo de desenvolver um método criativo, que
                     estimula a capacidade cognitiva.​<br><br>
 
-                    - Esse site conta com 5 enigmas, abordando temas do curso Informática Para Internet e variados.
+                    - Esse site conta com 5 enigmas, abordando temas do curso Informática Para Internet e variados. Boa sorte!
                 </div>
             </div>
         </section>
     </main>
     <script src="home.js"></script>
 </body>
-
-<?php
-session_start();
-require_once '../../db_connect.php';
-
-function phpAlert($msg) {
-    echo '<script type="text/javascript">alert("' . $msg . '")</script>';
-}
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST['logout'])) {
-        // Unset all of the session variables
-        $_SESSION = array();
-
-        // Destroy the session.
-        session_destroy();
-        
-        phpAlert('Você deslogou com sucesso!');
-        // Redirect to the login page or any other page after logout
-        header("Location: ../../index.php");
-        exit;
-    }
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        if (isset($_POST['jogar'])) {
-            if (isset($_SESSION['progress'])) {
-                $savedProgress = $_SESSION['progress'];
-                $page = "fase" . $savedProgress . ".php";
-                header("Location: ../../../Fases/" . $page);
-                exit;
-            }
-        }
-    }
-}
-?>
 
 </html>

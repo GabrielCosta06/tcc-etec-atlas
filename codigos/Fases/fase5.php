@@ -6,6 +6,9 @@ session_start();
 if (isset($_SESSION['user_id'])) {
     // Capturando o meu ID de usuário da sessão para referência futura
     $userId = $_SESSION['user_id'];
+    if (isset($_SESSION['name'])) {
+        $name = $_SESSION['name'];
+    }
 
     // Preciso estabelecer uma conexão com o banco de dados antes de fazer qualquer alteração nele
     require_once '../Login/db_connect.php';
@@ -80,7 +83,7 @@ if (isset($_SESSION['user_id'])) {
     <nav class="circular-menu">
         <div class="circle">
             <a id="openModalButtonSlider" class="fa fa-gear fa-2x"></a>
-        
+
             <div class="opacidade">
                 <a href="" class="fa fa-facebook fa-2x"></a>
                 <a href="" class="fa fa-twitter fa-2x"></a>
@@ -121,11 +124,10 @@ if (isset($_SESSION['user_id'])) {
         <div class="tudo">
             <div style="display: flex; justify-content: center; margin-top: 2%;">
                 <p>B SFTQPTUB FTUÁ OPT DÓEJHPT</p> <br> <br>
-                <p style="margin-top: 7%; font-size: smaller;" >Julio (César) - 2</p>
+                <p style="margin-top: 4%; font-size: smaller;">Julio (César) - 2</p>
             </div>
-            
-        </div>
 
+        </div>
 
 
         <div id="emailModal" class="modaldia2">
@@ -169,7 +171,6 @@ if (isset($_SESSION['user_id'])) {
                 </div>
             </div>
         </div>
-
         <div id="myModalSlider" class="modalSlider">
             <div class="modal-content">
                 <h1 class="conftxt">CONFIGURAÇÕES</h1>
@@ -185,12 +186,14 @@ if (isset($_SESSION['user_id'])) {
                     <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
                 </div>
                 <div class="Fcenter"> <button class="fechar" id="closeModalSlider">Fechar</button></div>
-
             </div>
         </div>
-        <p style="font-size: 20px; margin-top:150px;" id="timer"></p>
     </div>
-    
+    <p style="font-size: 20px; margin-top:150px;" id="timer"></p>
+    <br>
+    <p style="font-size: 25px; margin-top: 150px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
+            <?php echo $name ?>
+        </span></p>
     <script>
         function setCookie(cname, cvalue, exdays) {
             var d = new Date();
@@ -369,7 +372,6 @@ if (isset($_SESSION['user_id'])) {
             });
         });
     </script>
-
 </body>
 
 </html>
