@@ -33,59 +33,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="pt">
 
 <head>
-    <title>Registrar</title>
-    <link rel="stylesheet" href="register.css">
-    <link rel="shortcut icon" type="imagex/png" href="./img/incognita.png">
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <link rel="stylesheet" href="../../index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="shortcut icon" type="imagex/png" href="./img/incognita.png">
+
 </head>
 
 <body>
-    <header>
-        <div class="max-width">
-            <h1>Atlas</h1>
-        </div>
-    </header>
-    <div class="box">
-        <!-- English content here -->
-        <div class="english-content">
-            <h2 style="color: #BC6FF1; font-weight: bold; font-size: 45px;">Registrar-se</h2>
-            <p>Registre-se agora!</p>
+    <div class="container flex">
+        <div class="facebook-page flex">
+            <div class="text">
+                <h1>incógnita</h1>
+                <p>Jogue o nosso game misterioso </p>
+                <p> e veja se é capaz.</p>
+            </div>
             <form action="register.php" method="post">
-                <div class="inputBox">
-                    <input type="text" name="name" id="name" autocomplete="off" required value="">
-                    <label>Nome</label>
+                <input type="text" name="name" id="name" placeholder="Nome" required>
+                <input type="email" name="email" id="email" placeholder="Email" required>
+                <p>
+                    <input type="password" name="password" id="password" placeholder="Senha" required>
+                    <i style="display: none;" class="far fa-eye" id="togglePassword"></i>
+                </p>
+                <p>
+                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirmar senha" required>
+                    <i style="display: none;" class="far fa-eye" id="togglePassword2"></i>
+                </p>
+                <div class="link">
+                    <button type="submit" class="login">Registrar</button>
+                    <a href="#" class="forgot">Está com algum problema?</a>
                 </div>
-                <div class="inputBox">
-                    <input type="email" name="email" id="email" autocomplete="off" required value="">
-                    <label>E-mail</label>
+                <hr>
+                <div class="button">
+                    <a onclick="irLogin()">Já possuo uma conta</a>
                 </div>
-                <div class="inputBox">
-                    <input type="password" name="password" id="password" autocomplete="off" required value="">
-                    <label>Senha</label>
-                    <i class="far fa-eye"
-                        style="cursor: pointer; position: absolute; top: 50%; right: 10px; transform: translateY(-150%);"
-                        id="togglePassword"></i>
-                </div>
-
-                <div class="inputBox">
-                    <input type="password" name="confirmPassword" id="confirmPassword" autocomplete="off" required
-                        value="">
-                    <label>Confirmar senha</label>
-                    <i class="far fa-eye"
-                        style="cursor: pointer; position: absolute; top: 50%; right: 10px; transform: translateY(-150%);"
-                        id="toggleConfirmPassword"></i>
-                </div>
-                <button type="submit" class="solid" id="register-button">Registrar</button>
-                <button style="background: transparent; border: none; box-shadow: none; color: white;" type="button"
-                    class="clear" onclick="irLogin()">Login</button>
             </form>
         </div>
     </div>
-    <script src="register.js"></script>
 </body>
+<script src="register.js"></script>
 
 </html>

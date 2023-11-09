@@ -34,48 +34,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
 <!DOCTYPE html>
-<html lang="pt">
-
+<html lang="pt" >
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Painel de Login</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="shortcut icon" type="imagex/png" href="./Fases/img/incognita.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link rel="shortcut icon" type="imagex/png" href="./Fases/img/incognita.png">
+  <link rel="stylesheet" href="./index.css">
+
 </head>
-
 <body>
-    <header>
-        <div class="max-width">
-            <h1>Atlas</h1>
-        </div>
-    </header>
-    <div class="box">
-        <div class="english-content">
-            <h2 style="color: #BC6FF1; font-weight: bold; font-size: 45px;">Login</h2>
-            <p>Faça login!</p>
-            <form method="post" action="index.php">
-                <div class="inputBox">
-                    <input type="email" name="email" autocomplete="off" id="email" required value="">
-                    <label>E-mail</label>
-                </div>
-                <div class="inputBox">
-                    <input type="password" name="password" id="password" autocomplete="off" required value="">
-                    <label>Senha</label>
-                    <i class="far fa-eye"
-                        style="cursor: pointer; position: absolute; top: 50%; right: 10px; transform: translateY(-150%);"
-                        id="togglePassword"></i>
-                </div>
-                <button type="button" class="clear" id="recover-password-button" disabled="true">Recuperar senha</button>
-                <button type="submit" class="solid" id="login-button">Login</button>
-                <button style="background: transparent; border: none; box-shadow: none; color: white;" type="button" class="outline" onclick="irRegistrar()">Registrar</button>
-            </form>
-        </div>
+<div class="container flex">
+  <div class="facebook-page flex">
+    <div class="text">
+      <h1>incógnita</h1>
+      <p>Jogue o nosso game misterioso </p>
+      <p> e veja se é capaz.</p>
     </div>
-    <script src="index.js"></script>
+    <form method="post" action="index.php">
+    <input type="email" name="email" id="email" placeholder="Email" required>
+    <p>
+        <input type="password" name="password" id="password" placeholder="Senha" required>
+        <i style="display: none;" class="far fa-eye" id="togglePassword"></i>
+    </p>
+      <div class="link">
+        <button type="submit" class="login">Entrar</button>
+        <a href="#" class="forgot">Esqueceu a senha?</a>
+      </div>
+      <hr>
+      <div class="button">
+        <a onclick="irRegistrar()">Criar nova conta</a>
+      </div>
+    </form>
+  </div>
+  <script src="index.js"></script>
+</div>
+  
 </body>
-
 </html>

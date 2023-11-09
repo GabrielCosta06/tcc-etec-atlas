@@ -3,22 +3,34 @@ function irLogin() {
 }
 
 const togglePassword = document.querySelector('#togglePassword');
+const togglePassword2 = document.querySelector('#togglePassword2');
 const password = document.querySelector('#password');
-
-const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
 const confirmPassword = document.querySelector('#confirmPassword');
 
-toggleConfirmPassword.addEventListener('click', function(e) {
-    const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-    confirmPassword.setAttribute('type', type);
+password.addEventListener('input', function () {
+    if (password.value) {
+        togglePassword.style.display = 'inline-block';
+    } else {
+        togglePassword.style.display = 'none';
+    }
+});
+
+confirmPassword.addEventListener('input', function () {
+    if (confirmPassword.value) {
+        togglePassword2.style.display = 'inline-block';
+    } else {
+        togglePassword2.style.display = 'none';
+    }
+});
+
+togglePassword.addEventListener('click', function (e) {
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
     this.classList.toggle('fa-eye-slash');
 });
 
-
-togglePassword.addEventListener('click', function(e) {
-    // toggle the type attribute
-    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
-    // toggle the eye slash icon
+togglePassword2.addEventListener('click', function (e) {
+    const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+    confirmPassword.setAttribute('type', type);
     this.classList.toggle('fa-eye-slash');
 });

@@ -1,39 +1,27 @@
 <?php
-// Iniciando a sessão para manter o controle do usuário logado
 session_start();
 
-// Garantindo que o meu ID de usuário esteja definido antes de usá-lo
 if (isset($_SESSION['user_id'])) {
-    // Capturando o meu ID de usuário da sessão para referência futura
     $userId = $_SESSION['user_id'];
     if (isset($_SESSION['name'])) {
         $name = $_SESSION['name'];
     }
 
-    // Preciso estabelecer uma conexão com o banco de dados antes de fazer qualquer alteração nele
     require_once '../Login/db_connect.php';
 
-    // Se o método da requisição for POST, posso prosseguir com a atualização do meu progresso
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Vou definir o valor do meu progresso como 3 para marcar o avanço
-        $progress = 4; // ou qualquer outro valor apropriado que eu queira atribuir
+        $progress = 4;
 
-        // Agora, vou executar uma consulta SQL para atualizar o meu progresso no banco de dados
         $sql = "UPDATE users SET progress = '$progress' WHERE user_id = '$userId'";
 
-        // Verifico se a atualização foi realizada com sucesso ou se houve algum erro
         if ($conn->query($sql) === TRUE) {
-            // Vou imprimir um alerta para mim mesmo para confirmar que o progresso foi atualizado com sucesso
             echo '<script>alert("Ótimo! Seu progresso foi atualizado com sucesso!")</script>';
         } else {
-            // Se algo der errado, quero ser notificado com um alerta indicando o problema
             echo '<script>alert("Ops! Houve um problema ao atualizar o seu progresso: ' . $conn->error . '")</script>';
         }
-        // Terminado o processo, posso fechar a conexão com o banco de dados
         $conn->close();
     }
 } else {
-    // Se meu ID de usuário não estiver definido na sessão, devo receber um alerta para verificar o problema
     echo '<script>alert("Parece que seu ID de usuário não está definido na sessão. Verifique e tente novamente.")</script>';
 }
 ?>

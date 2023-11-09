@@ -17,10 +17,9 @@ $conn->close();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fase 1</title>
-    <link rel="stylesheet" href="fase1.css">
+    <link rel="stylesheet" href="fases.css">
     <link rel="stylesheet" href="menu.css">
     <link rel="shortcut icon" type="imagex/png" href="./img/incognita.png">
-    <script src="fase.js"></script>
 
 
 </head>
