@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS `users` (
     `name` VARCHAR(50) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
-    `progress` INT DEFAULT 1
+    `progress` INT DEFAULT 1,
+    `reset_code` VARCHAR(255)
 );
 /* 
 Essa é a query para sempre que for iniciar um novo servidor local.

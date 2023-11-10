@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </p>
       <div class="link">
         <button type="submit" class="login">Entrar</button>
-        <a href="#" class="forgot">Esqueceu a senha?</a>
+        <a href="forgot_password.php" class="forgot">Esqueceu a senha?</a>
       </div>
       <hr>
       <div class="button">
@@ -69,8 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
     </form>
   </div>
-  <script src="index.js"></script>
 </div>
+<script src="index.js"></script>
   
 </body>
 </html>
