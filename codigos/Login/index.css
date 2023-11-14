@@ -75,6 +75,12 @@ form input:focus {
   border-color: #bc6ff1;
 }
 
+.text a {
+  font-size: 15px;
+  color: #bc6ff1;
+  margin-right: 5px;
+}
+
 ::placeholder {
   color: #777;
   font-size: 1.063rem;

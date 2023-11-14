@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $update_stmt->bind_param('si', $new_password, $user_id);
     $update_stmt->execute();
 
-    echo "Senha resetada com sucesso. Você pode ir para o <a href='index.php'>login</a> with your new password.";
+    echo "<script>alert('Senha resetada com sucesso. Redirecionando você para login...')</script>";
+    header('Location: index.php');
 }
 ?>

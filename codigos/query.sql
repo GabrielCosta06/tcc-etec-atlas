@@ -1,5 +1,5 @@
-CREATE SCHEMA IF NOT EXISTS `users`;
-USE `users`;
+CREATE SCHEMA IF NOT EXISTS `incognita`;
+USE `incognita`;
 CREATE TABLE IF NOT EXISTS `users` (
     `user_id` INT AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(50) NOT NULL,
