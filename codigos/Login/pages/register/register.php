@@ -7,28 +7,34 @@ function phpAlert($msg)
     echo '<script type="text/javascript">alert("' . $msg . '")</script>';
 }
 
-//checo se o metodo é igual a post
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    //checando se as senhas coincidem
-    if ($_POST['password'] != $_POST['confirmPassword']) {
-        phpAlert('As senhas não coincidem!');
+
+    $checkQuery = "SELECT * FROM users WHERE email = '$email' OR name = '$name'";
+    $checkResult = $conn->query($checkQuery);
+
+    if ($checkResult-> num_rows > 0) {
+        phpAlert('Email ou nome já existem.');
     } else {
-        //se senhas coincidem, insere na tabela
-        $sql = "INSERT INTO users (email, name, password) VALUES ('$email', '$name', '$password')";
-        //caso haja inserção de dados na tabela, então redireciona para página de login
-        if ($conn->query($sql) === TRUE) {
-            $_SESSION['email'] = $email;
-            phpAlert('Registro efetuado com sucesso!');
-            header("Location: ../../index.php");
-            exit();
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        if ($_POST['password'] != $_POST['confirmPassword']) {
+            phpAlert('Senhas não coincidem!');
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            $insertQuery = "INSERT INTO users (email, name, password) VALUES ('$email', '$name', '$password')";
+
+            if ($conn->query($insertQuery) === TRUE) {
+                $_SESSION['email'] = $email;
+                phpAlert('Registration successful!');
+                header("Location: ../../index.php");
+                exit();
+            } else {
+                echo "Error: " . $insertQuery . "<br>" . $conn->error;
+            }
         }
-        $conn->close();
     }
+
+    $conn->close();
 }
 ?>
 
