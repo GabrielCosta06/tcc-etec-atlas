@@ -1,18 +1,19 @@
 <?php
-$servername = "localhost"; // Replace with your server name
-$port = "3306"; // Replace with your port number
-$username = "root"; // Replace with your database username
-$password = ""; // Replace with your database password
-$dbname = "users"; // Replace with your database name
+$servername = "localhost";
+$port = "3306";
+$username = "root"; 
+$password = ""; 
+$dbname = "incognita";
 
-// Create connection
+// criar conexão
 $conn = new mysqli($servername . ":" . $port, $username, $password, $dbname);
 
-// Check connection
+// checar conexão
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// pra fins de resetar senha, setei o valor da variável mysqli igual conn
 $mysqli = $conn;
 
 ?>

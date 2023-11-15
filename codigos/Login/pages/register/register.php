@@ -58,11 +58,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="email" name="email" id="email" placeholder="Email" required>
                 <p>
                     <input type="password" name="password" id="password" placeholder="Senha" required>
-                    <i style="display: none;" class="far fa-eye" id="togglePassword"></i>
+                    <i style="display: none; color: #000;" class="far fa-eye" id="togglePassword"></i>
                 </p>
                 <p>
                     <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirmar senha" required>
-                    <i style="display: none;" class="far fa-eye" id="togglePassword2"></i>
+                    <i style="display: none; color: #000;" class="far fa-eye" id="togglePassword2"></i>
                 </p>
                 <div class="link">
                     <button type="submit" class="login">Registrar</button>
