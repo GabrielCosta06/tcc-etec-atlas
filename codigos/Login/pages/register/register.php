@@ -25,8 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($conn->query($insertQuery) === TRUE) {
                 $_SESSION['email'] = $email;
-                phpAlert('Registration successful!');
-                header("Location: ../../index.php");
+                echo "<script>alert('Registrado com sucesso! Redirecionando...'); alert('Agora faça o login com sua nova conta!');";
+                echo 'window.setTimeout(function(){ window.location.href = "../../index.php"; }, 1);';
+                echo '</script>';
                 exit();
             } else {
                 echo "Error: " . $insertQuery . "<br>" . $conn->error;
@@ -47,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Registro</title>
     <link rel="stylesheet" href="../../index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-    <link rel="shortcut icon" type="imagex/png" href="./img/incognita.png">
+    <link rel="shortcut icon" type="imagex/png" href="../../Fases/img/incognita.png">
 
 </head>
 

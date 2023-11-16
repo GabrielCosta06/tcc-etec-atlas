@@ -1,16 +1,57 @@
 <?php
 session_start();
-require_once("../Login/db_connect.php");
+require_once '../Login/db_connect.php';
 
 if (isset($_SESSION['name'])) {
     $name = $_SESSION['name'];
 }
 
-$conn->close();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['rs'])) {
+
+        $rs = strtolower(trim($_POST["rs"]));
+        $userId = $_SESSION['user_id'];
+
+        #checar se o cookie ainda é válido
+        if (isset($_COOKIE['timer']) && $_COOKIE['timer'] > 0) {
+            $selectSql = "SELECT progress FROM users WHERE user_id = '$userId'";
+            $result = $conn->query($selectSql);
+
+            if ($result && $result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $currentProgress = $row['progress'];
+
+                if ($rs === "tobias") {
+                    $newProgress = 2;
+                    $updateSql = "UPDATE users SET progress = '$newProgress' WHERE user_id = '$userId'";
+
+                    if ($conn->query($updateSql) === TRUE) {
+                        echo '<script>alert("Ótimo! Seu progresso foi atualizado com sucesso!");</script>';
+                        echo '<script>alert("Resposta correta! Próxima fase...");</script>';
+                        echo '<script>window.location.href = "fase2.php";</script>';
+                    } else {
+                        echo '<script>alert("Ops! Houve um problema ao atualizar o seu progresso: ' . $conn->error . '");</script>';
+                    }
+                } else {
+                    echo '<script>alert("Resposta incorreta!");</script>';
+                }
+            } else {
+                echo '<script>alert("Erro ao buscar o progresso do usuário: ' . $conn->error . '");</script>';
+            }
+        } else {
+            echo '<script>alert("Que pena, o tempo se esgotou!");</script>';
+            include '../Login/destroy_session.php';
+            echo '<script>window.location.href = "../Login/index.php";</script>';
+        }
+    }
+    $conn->close();
+}
 ?>
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 
 <head>
     <meta charset="UTF-8">
@@ -51,9 +92,11 @@ $conn->close();
             <p>1</p>
             <div class="navbar">
                 <div class="resposta">
-                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="Dica: Seu nome?">
-
-                    <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
+                    <form action="fase1.php" method="post">
+                        <input type="text" class="rs" name="rs" id="rs" autocomplete="off"
+                            placeholder="Dica: Seu nome?">
+                        <input type="submit" value="Enviar" class="enviar">
+                    </form>
                 </div>
             </div>
         </header>
@@ -162,7 +205,6 @@ $conn->close();
                 <div class="slider-container">
                     <div class="brilho">
                         Brilho
-                        <!-- Ícone de brilho -->
                     </div>
                     <input type="range" id="brightnessSlider" min="30" max="100" value="100">
                 </div>
@@ -179,231 +221,7 @@ $conn->close();
     <p style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
             <?php echo $name ?>
         </span></p>
-    <script>
-        function setCookie(cname, cvalue, exdays) {
-            var d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            var expires = "expires=" + d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        }
-
-        function getCookie(cname) {
-            var name = cname + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var ca = decodedCookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
-
-        function deleteCookie(cname) {
-            document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        }
-
-        var timerElement = document.getElementById('timer');
-        var storedTimeLeft = getCookie('timer');
-        var timeLeft = storedTimeLeft ? parseInt(storedTimeLeft) : 900; // Set to 90 seconds by default or fetch from cookie
-        var intervalId;
-
-        function updateCountdown() {
-            var minutes = Math.floor(timeLeft / 60);
-            var seconds = timeLeft % 60;
-
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-
-            timerElement.innerHTML = 'Tempo: ' + minutes + ':' + seconds;
-
-            if (timeLeft > 0) {
-                setCookie('timer', timeLeft, 1); // Save the timer value in cookie every second
-                timeLeft--;
-            } else {
-                clearInterval(intervalId); // Clear the interval when the timer runs out
-                alert('Que pena, o tempo se esgotou!');
-                deleteCookie('timer');
-                window.location.href = '../Login/destroy_session.php';
-            }
-        }
-
-        // Clear the previous interval when the page reloads
-        window.onload = function () {
-            if (intervalId) {
-                clearInterval(intervalId);
-            }
-            intervalId = setInterval(updateCountdown, 1000);
-        };
-
-        //MENU
-
-        var items = document.querySelectorAll('.circle a, .circle buttom');
-
-        for (var i = 0, l = items.length; i < l; i++) {
-            items[i].style.left = (50 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
-
-            items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
-        }
-
-        document.querySelector('.menu-button').onclick = function (e) {
-            e.preventDefault();
-            document.querySelector('.circle').classList.toggle('open');
-        }
-
-
-
-        //VERIDFICAÇÃO DE RESPOSTA
-
-        function verificarResposta() {
-            var rs = document.getElementById("rs").value;
-            if (rs.toLowerCase() === "tobias") {
-                window.alert("Resposta correta! Próxima fase...");
-                window.location.href = 'fase2.php';
-
-            } else {
-                alert("Resposta incorreta!");
-            }
-        }
-
-        function openPopup() {
-            const windowFeatures = "left=800,top=350,width=320,height=320";
-            window.open('sobre.html', 'popup', windowFeatures);
-        }
-
-
-        //modal-----
-        const openModalBtn = document.getElementById("openModalBtn");
-        const mainModal = document.getElementById("mainModal");
-        const closeMainModalBtn = document.getElementById("closeMainModalBtn");
-        //modalEmail
-        const openEmailModalBtn = document.getElementById("openEmailModalBtn");
-        const emailModal = document.getElementById("emailModal");
-        const closeEmailModalBtn = document.getElementById("closeEmailModalBtn");
-        //modalSlider
-        const openModalButtonSlider = document.getElementById("openModalButtonSlider");
-        const closeModalSlider = document.getElementById("closeModalSlider");
-        const modalSlider = document.getElementById("myModalSlider");
-        const brightnessSlider = document.getElementById("brightnessSlider");
-
-        let isMainModalDraggable = false;
-        let isEmailModalDraggable = false;
-
-        // Função para tornar o modal principal arrastável
-        function makeMainModalDraggable() {
-            mainModal.style.cursor = "grab";
-            mainModal.style.userSelect = "none";
-
-            mainModal.addEventListener("mousedown", startDraggingMainModal);
-            mainModal.addEventListener("mouseup", stopDraggingMainModal);
-        }
-
-        // Função para iniciar o arrastamento do modal principal
-        function startDraggingMainModal(e) {
-            isMainModalDraggable = true;
-            offsetMainModalX = e.clientX - mainModal.getBoundingClientRect().left;
-            offsetMainModalY = e.clientY - mainModal.getBoundingClientRect().top;
-            mainModal.style.cursor = "grabbing";
-        }
-
-        // Função para parar o arrastamento do modal principal
-        function stopDraggingMainModal() {
-            isMainModalDraggable = false;
-            mainModal.style.cursor = "grab";
-        }
-
-        // Função para mover o modal principal durante o arrastamento
-        function dragMainModal(e) {
-            if (isMainModalDraggable) {
-                mainModal.style.left = e.clientX - offsetMainModalX + "px";
-                mainModal.style.top = e.clientY - offsetMainModalY + "px";
-            }
-        }
-
-        // Função para tornar o modal de email arrastável
-        function makeEmailModalDraggable() {
-            emailModal.style.cursor = "grab";
-            emailModal.style.userSelect = "none";
-
-            emailModal.addEventListener("mousedown", startDraggingEmailModal);
-            emailModal.addEventListener("mouseup", stopDraggingEmailModal);
-        }
-
-        // Função para iniciar o arrastamento do modal de email
-        function startDraggingEmailModal(e) {
-            isEmailModalDraggable = true;
-            offsetEmailModalX = e.clientX - emailModal.getBoundingClientRect().left;
-            offsetEmailModalY = e.clientY - emailModal.getBoundingClientRect().top;
-            emailModal.style.cursor = "grabbing";
-        }
-
-        // Função para parar o arrastamento do modal de email
-        function stopDraggingEmailModal() {
-            isEmailModalDraggable = false;
-            emailModal.style.cursor = "grab";
-        }
-
-        // Função para mover o modal de email durante o arrastamento
-        function dragEmailModal(e) {
-            if (isEmailModalDraggable) {
-                emailModal.style.left = e.clientX - offsetEmailModalX + "px";
-                emailModal.style.top = e.clientY - offsetEmailModalY + "px";
-            }
-        }
-
-        // Event listeners para tornar os modais arrastáveis
-        makeMainModalDraggable();
-        makeEmailModalDraggable();
-
-        // Event listeners para arrastar os modais
-        document.addEventListener("mousemove", dragMainModal);
-        document.addEventListener("mousemove", dragEmailModal);
-
-        // Função para abrir o modal principal
-        openModalBtn.addEventListener("click", () => {
-            mainModal.style.display = "block";
-            mainModal.style.opacity = '100%';
-        });
-
-        // Função para fechar o modal principal
-        closeMainModalBtn.addEventListener("click", () => {
-            mainModal.style.display = "none";
-        });
-
-        // Função para abrir o modal de email
-        openEmailModalBtn.addEventListener("click", () => {
-            emailModal.style.display = "block";
-            emailModal.style.opacity = '100%';
-        });
-
-        // Função para fechar o modal de email
-        closeEmailModalBtn.addEventListener("click", () => {
-            emailModal.style.display = "none";
-        });
-
-
-
-        //OPen config
-        openModalButtonSlider.addEventListener("click", () => {
-            modalSlider.style.display = "block";
-            modalSlider.style.opacity = '100%';
-        });
-
-        closeModalSlider.addEventListener("click", () => {
-            modalSlider.style.display = "none";
-        });
-
-
-        //SliderBrilho
-        brightnessSlider.addEventListener("input", () => {
-            const brightnessValue = brightnessSlider.value;
-            document.getElementById("tudo").style.filter = `brightness(${brightnessValue}%)`;
-
-        });
-    </script>
+    <script src="fases.js"></script>
 
 </body>
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Esqueceu a senha</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-    <link rel="shortcut icon" type="imagex/png" href="./Fases/img/incognita.png">
+    <link rel="shortcut icon" type="imagex/png" href="../Fases/img/incognita.png">
     <link rel="stylesheet" href="./index.css">
 
 </head>

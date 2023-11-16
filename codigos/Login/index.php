@@ -18,12 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
-            phpAlert('Logado com sucesso! Redirecionando...');
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['name'] = $row['name'];
             $_SESSION['email'] = $email;
             $_SESSION['progress'] = $row['progress'];
-            header("Location: ./pages/home/home-logado.php");
+            echo "<script>alert('Logado com sucesso! Redirecionando...');";
+            echo 'window.setTimeout(function(){ window.location.href = "./pages/home/home-logado.php"; }, 1);';
+            echo '</script>';
             exit;
         } else {
             phpAlert('Senha incorreta!');
@@ -41,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8">
   <title>Login</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-  <link rel="shortcut icon" type="imagex/png" href="./Fases/img/incognita.png">
+  <link rel="shortcut icon" type="imagex/png" href="../Fases/img/incognita.png">
   <link rel="stylesheet" href="./index.css">
 
 </head>
@@ -73,7 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script src="index.js"></script>
   
 </body>

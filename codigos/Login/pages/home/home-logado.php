@@ -19,15 +19,13 @@ function phpAlert($msg)
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST['logout'])) {
-        // Unset all of the session variables
         $_SESSION = array();
 
-        // Destroy the session.
         session_destroy();
 
-        phpAlert('Você deslogou com sucesso!');
-        // Redirect to the login page or any other page after logout
-        header("Location: ../../index.php");
+        echo "<script>alert('Deslogado com sucesso.'); alert('Faça o login novamente!');";
+        echo 'window.setTimeout(function(){ window.location.href = "../../index.php"; }, 1);';
+        echo '</script>';
         exit;
     }
 
@@ -52,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="home-logado.css">
-    <link rel="shortcut icon" type="imagex/png" href="./Fases/img/incognita.png">
+    <link rel="shortcut icon" type="imagex/png" href="../../../Fases/img/incognita.png">
 </head>
 
 <body>

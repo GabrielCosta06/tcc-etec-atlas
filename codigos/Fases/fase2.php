@@ -1,36 +1,58 @@
 <?php
 session_start();
-if (isset($_SESSION['user_id'])) {
+require_once '../Login/db_connect.php';
 
-    $userId = $_SESSION['user_id'];
-    if (isset($_SESSION['name'])) {
-        $name = $_SESSION['name'];
-    }
-
-    require_once '../Login/db_connect.php';
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") 
-        if (isset($_POST['save_progress'])) {
-            $progress = 2; 
-            $sql = "UPDATE users SET progress = '$progress' WHERE user_id = '$userId'";
-
-            if ($conn->query($sql) === TRUE) {
-                echo '<script>alert("Ótimo! Seu progresso foi atualizado com sucesso!")</script>';
-            } else {
-                echo '<script>alert("Ops! Houve um problema ao atualizar o seu progresso: ' . $conn->error . '")</script>';
-            }
-
-            $conn->close();
-        }
-
-} else {
-
-    echo '<script>alert("Parece que seu ID de usuário não está definido na sessão. Verifique e tente novamente.")</script>';
+if (isset($_SESSION['name'])) {
+    $name = $_SESSION['name'];
 }
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['rs'])) {
+
+        $rs = strtolower($_POST["rs"]);
+        $userId = $_SESSION['user_id'];
+
+        #checar se o cookie ainda é válido
+        if (isset($_COOKIE['timer']) && $_COOKIE['timer'] > 0) {
+            $selectSql = "SELECT progress FROM users WHERE user_id = '$userId'";
+            $result = $conn->query($selectSql);
+
+            if ($result && $result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $currentProgress = $row['progress'];
+
+                if ($rs === "a capela de ossos" || $rs === "capela de ossos" || $rs === "capela dos ossos" || $rs === "a capela dos ossos") {
+                    $newProgress = 3;
+                    $updateSql = "UPDATE users SET progress = '$newProgress' WHERE user_id = '$userId'";
+
+                    if ($conn->query($updateSql) === TRUE) {
+                        echo '<script>alert("Ótimo! Seu progresso foi atualizado com sucesso!");</script>';
+                        echo '<script>alert("Resposta correta! Próxima fase...");</script>';
+                        echo '<script>window.location.href = "fase3.php";</script>';
+                    } else {
+                        echo '<script>alert("Ops! Houve um problema ao atualizar o seu progresso: ' . $conn->error . '");</script>';
+                    }
+                } else {
+                    echo '<script>alert("Resposta incorreta!");</script>';
+                }
+            } else {
+                echo '<script>alert("Erro ao buscar o progresso do usuário: ' . $conn->error . '");</script>';
+            }
+        } else {
+            echo '<script>alert("Que pena, o tempo se esgotou!");</script>';
+            include '../Login/destroy_session.php';
+            echo '<script>window.location.href = "../Login/index.php";</script>';
+        }
+    }
+    $conn->close();
+}
+
 ?>
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 
 <head>
     <meta charset="UTF-8">
@@ -40,27 +62,6 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="fases.css">
     <link rel="stylesheet" href="menu.css">
     <link rel="shortcut icon" type="imagex/png" href="./img/incognita.png">
-    <style>
-        .button {
-            display: inline-block;
-            border-radius: 4px;
-            background-color: #7e57c2;
-            border: none;
-            color: #ffffff;
-            text-align: center;
-            font-size: 16px;
-            padding: 10px;
-            width: 120px;
-            transition: all 0.5s;
-            cursor: pointer;
-            margin: 5px;
-            font-family: Arial, sans-serif;
-        }
-
-        .button:hover {
-            background-color: #5d4099;
-        }
-    </style>
 </head>
 
 <body>
@@ -78,23 +79,21 @@ if (isset($_SESSION['user_id'])) {
             </div>
 
             <a href="../../codigos/Login/pages/home/home-logado.php" class="fa fa-home fa-2x"></a>
-            <a id="openEmailModalBtn" class="fa fa-book fa-2x"></a>
+            <a id="openModalBtn" class="fa fa-book fa-2x"></a>
         </div>
 
         <a class="menu-button fa fa-bars fa-2x"></a>
 
     </nav>
-    <form action="fase2.php" method="post">
-        <div class="salvar"> <button type="submit" name="save_progress" class="button">Salvar Progresso</button></div>
-    </form>
     <div id="tudo">
         <header>
             <p>2</p>
             <div class="navbar">
                 <div class="resposta">
-                    <input type="text" class="rs" id="rs" autocomplete="off" placeholder="Dica: O local?">
-
-                    <input type="submit" value="Enviar" class="enviar" onclick="verificarResposta()">
+                    <form action="fase2.php" method="post">
+                        <input type="text" class="rs" name="rs" id="rs" autocomplete="off" placeholder="Dica: Local?">
+                        <input type="submit" value="Enviar" class="enviar">
+                    </form>
                 </div>
             </div>
 
@@ -104,13 +103,13 @@ if (isset($_SESSION['user_id'])) {
         <h1 class="cod"> 38.56889920928527, -7.908806192879108</h1>
 
 
-        <div id="emailModal" class="modaldia2">
+        <div id="mainModal" class="modal">
             <div class="modal-content">
-                <span class="close" id="closeEmailModalBtn">&times;</span>
+                <span class="close" id="closeMainModalBtn">&times;</span>
                 <h1>Querido Diário, </h1>
-                <div class="txtModalDia2">
+                <div class="txtModal">
                     <br>
-                    hoje acordei depois de um longo pesadelo sobre o e-mail de ontem, li o mesmo cerca de 13 vezes sem
+                    Hoje acordei depois de um longo pesadelo sobre o e-mail de ontem, li o mesmo cerca de 13 vezes sem
                     parar e não entendia sequer uma palavra daquele texto enigmático e melancólico. <br><br>
 
                     Após o almoço tentei procurar sobre na internet, não havia nada sobre esse tal de </E.V.A.> porém
@@ -151,186 +150,7 @@ if (isset($_SESSION['user_id'])) {
     <p style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
             <?php echo $name ?>
         </span></p>
-    <script>
-        function setCookie(cname, cvalue, exdays) {
-            var d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            var expires = "expires=" + d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        }
-
-        function getCookie(cname) {
-            var name = cname + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var ca = decodedCookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
-
-        function deleteCookie(cname) {
-            document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        }
-
-        var timerElement = document.getElementById('timer');
-        var storedTimeLeft = getCookie('timer');
-        var timeLeft = storedTimeLeft ? parseInt(storedTimeLeft) : 900; // Set to 90 seconds by default or fetch from cookie
-        var intervalId;
-
-        function updateCountdown() {
-            var minutes = Math.floor(timeLeft / 60);
-            var seconds = timeLeft % 60;
-
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-
-            timerElement.innerHTML = 'Tempo: ' + minutes + ':' + seconds;
-
-            if (timeLeft > 0) {
-                setCookie('timer', timeLeft, 1); // Save the timer value in cookie every second
-                timeLeft--;
-            } else {
-                clearInterval(intervalId); // Clear the interval when the timer runs out
-                alert('Que pena, o tempo se esgotou!');
-                deleteCookie('timer');
-                window.location.href = '../Login/destroy_session.php';
-            }
-        }
-
-        // Clear the previous interval when the page reloads
-        window.onload = function () {
-            if (intervalId) {
-                clearInterval(intervalId);
-            }
-            intervalId = setInterval(updateCountdown, 1000);
-        };
-        var items = document.querySelectorAll('.circle a');
-
-        for (var i = 0, l = items.length; i < l; i++) {
-            items[i].style.left = (50 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
-
-            items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
-        }
-
-        document.querySelector('.menu-button').onclick = function (e) {
-            e.preventDefault();
-            document.querySelector('.circle').classList.toggle('open');
-        }
-
-
-
-        //VERIDFICAÇÃO DE RESPOSTA
-
-        function verificarResposta() {
-            var rs = document.getElementById("rs").value;
-
-            if (rs.toLowerCase() === "capela de ossos" || rs.toLowerCase() === "CAPELA DE OSSOS" || rs.toLowerCase() === "capela dos ossos" || rs.toLowerCase() === "CAPELA DOS OSSOS" || rs.toLowerCase() === "a capela de ossos") {
-
-                window.alert("Resposta correta! Próxima fase...");
-                window.location.href = 'fase3.php';
-
-            } else {
-                alert("Resposta incorreta!");
-            }
-        }
-
-        function openPopup() {
-            const windowFeatures = "left=800,top=350,width=320,height=320";
-            window.open('sobre.html', 'popup', windowFeatures);
-        }
-
-
-        //modalEmail
-        const openEmailModalBtn = document.getElementById("openEmailModalBtn");
-        const emailModal = document.getElementById("emailModal");
-        const closeEmailModalBtn = document.getElementById("closeEmailModalBtn");
-        //modalSlider
-        const openModalButtonSlider = document.getElementById("openModalButtonSlider");
-        const closeModalSlider = document.getElementById("closeModalSlider");
-        const modalSlider = document.getElementById("myModalSlider");
-        const brightnessSlider = document.getElementById("brightnessSlider");
-
-        let isEmailModalDraggable = false;
-
-        // Função para tornar o modal de email arrastável
-        function makeEmailModalDraggable() {
-            emailModal.style.cursor = "grab";
-            emailModal.style.userSelect = "none";
-
-            emailModal.addEventListener("mousedown", startDraggingEmailModal);
-            emailModal.addEventListener("mouseup", stopDraggingEmailModal);
-        }
-
-        // Função para iniciar o arrastamento do modal de email
-        function startDraggingEmailModal(e) {
-            isEmailModalDraggable = true;
-            offsetEmailModalX = e.clientX - emailModal.getBoundingClientRect().left;
-            offsetEmailModalY = e.clientY - emailModal.getBoundingClientRect().top;
-            emailModal.style.cursor = "grabbing";
-        }
-
-        // Função para parar o arrastamento do modal de email
-        function stopDraggingEmailModal() {
-            isEmailModalDraggable = false;
-            emailModal.style.cursor = "grab";
-        }
-
-        // Função para mover o modal de email durante o arrastamento
-        function dragEmailModal(e) {
-            if (isEmailModalDraggable) {
-                emailModal.style.left = e.clientX - offsetEmailModalX + "px";
-                emailModal.style.top = e.clientY - offsetEmailModalY + "px";
-            }
-        }
-
-        // Event listeners para tornar os modais arrastáveis
-        makeEmailModalDraggable();
-
-        // Event listeners para arrastar os modais
-        document.addEventListener("mousemove", dragEmailModal);
-
-        // Função para abrir o modal de email
-        openEmailModalBtn.addEventListener("click", () => {
-            emailModal.style.display = "block";
-            emailModal.style.opacity = '100%';
-        });
-
-        // Função para fechar o modal de email
-        closeEmailModalBtn.addEventListener("click", () => {
-            emailModal.style.display = "none";
-        });
-
-
-
-        //OPen config
-        openModalButtonSlider.addEventListener("click", () => {
-            modalSlider.style.display = "block";
-            modalSlider.style.opacity = '100%';
-        });
-
-        closeModalSlider.addEventListener("click", () => {
-            modalSlider.style.display = "none";
-        });
-
-
-        //SliderBrilho
-        brightnessSlider.addEventListener("input", () => {
-            const brightnessValue = brightnessSlider.value;
-            document.getElementById("tudo").style.filter = `brightness(${brightnessValue}%)`;
-
-            const codElements = document.querySelectorAll(".cod");
-            codElements.forEach((element) => {
-                const initialOpacity = 100 - brightnessValue; // Calcula a opacidade inicial
-                element.style.opacity = initialOpacity / 100; // Define a opacidade com base no valor do slider
-            });
-        });
-    </script>
+    <script src="fases.js"></script>
 
 </body>
 
