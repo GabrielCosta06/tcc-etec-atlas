@@ -97,8 +97,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p>5</p>
             <div class="navbar">
                 <div class="resposta">
-                <form action="fase5.php" method="post">
-                        <input type="text" class="rs" name="rs" id="rs" autocomplete="off" placeholder="Dica: Bem vindo?">
+                    <form action="fase5.php" method="post">
+                        <input type="text" class="rs" name="rs" id="rs" autocomplete="off"
+                            placeholder="Dica: Bem vindo?">
                         <input type="submit" value="Enviar" class="enviar">
                     </form>
                 </div>
@@ -110,9 +111,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         <div class="tudo">
-            <div style="display: flex; justify-content: center; margin-top: 2%;">
-                <p>B SFTQPTUB FTUÁ OPT DÓEJHPT</p> <br> <br>
-                <p style="margin-top: 5%; font-size: smaller;">Julio (César) - 1</p>
+            <div class="enigma">
+                <div style="display: flex; justify-content: center; margin-top: 2%;">
+                    <p class="">B SFTQPTUB FTUÁ OPT DÓEJHPT</p> <br> <br>
+                    <p style="margin-top: 5%; font-size: smaller;">Julio (César) - 1</p>
+                </div>
             </div>
 
         </div>
@@ -177,11 +180,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
-    <p style="font-size: 20px; margin-top:150px;" id="timer"></p>
+    <p class="timer" id="timer"></p>
     <br>
-    <p style="font-size: 25px; margin-top: 150px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
+    <p class="demore" style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
             <?php echo $name ?>
-        </span></p>
+        </span>
+    </p>
     <script src="fases.js"></script>
 </body>
 

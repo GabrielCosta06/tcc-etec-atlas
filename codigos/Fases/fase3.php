@@ -98,10 +98,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </header>
 
+        <div class="enigma">
         <h2 class="morse">-. .- --- / - . -- / ...- --- .-.. - .-</h2>
         <br><br><br>
-
         <div class="select">select</div>
+        </div>
 
 
         <div id="mainModal" class="modal">
@@ -164,11 +165,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
-    <p style="font-size: 20px;" id="timer"></p>
+    <p class="timer" id="timer"></p>
     <br>
-    <p style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
-            <?php echo $name ?>
-        </span></p>
+    <p class="demore" style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
+        <?php echo $name ?></span>
+    </p>
     <script src="fases.js"></script>
 
 </body>

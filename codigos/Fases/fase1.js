@@ -125,7 +125,55 @@ closeMainModalBtn.addEventListener("click", () => {
 });
 
 
-// Config Slider
+// Email Modal
+const openEmailModalBtn = document.getElementById("openEmailModalBtn");
+const emailModal = document.getElementById("emailModal");
+const closeEmailModalBtn = document.getElementById("closeEmailModalBtn");
+
+let isEmailModalDraggable = false;
+let offsetEmailModalX, offsetEmailModalY;
+
+function makeEmailModalDraggable() {
+    emailModal.style.cursor = "grab";
+    emailModal.style.userSelect = "none";
+
+    emailModal.addEventListener("mousedown", startDraggingEmailModal);
+    emailModal.addEventListener("mouseup", stopDraggingEmailModal);
+}
+
+function startDraggingEmailModal(e) {
+    isEmailModalDraggable = true;
+    offsetEmailModalX = e.clientX - emailModal.getBoundingClientRect().left;
+    offsetEmailModalY = e.clientY - emailModal.getBoundingClientRect().top;
+    emailModal.style.cursor = "grabbing";
+}
+
+function stopDraggingEmailModal() {
+    isEmailModalDraggable = false;
+    emailModal.style.cursor = "grab";
+}
+
+function dragEmailModal(e) {
+    if (isEmailModalDraggable) {
+        emailModal.style.left = e.clientX - offsetEmailModalX + "px";
+        emailModal.style.top = e.clientY - offsetEmailModalY + "px";
+    }
+}
+
+makeEmailModalDraggable();
+document.addEventListener("mousemove", dragEmailModal);
+
+openEmailModalBtn.addEventListener("click", () => {
+    emailModal.style.display = "block";
+    emailModal.style.opacity = '100%';
+});
+
+closeEmailModalBtn.addEventListener("click", () => {
+    emailModal.style.display = "none";
+});
+
+
+// Email Slider
 const openModalButtonSlider = document.getElementById("openModalButtonSlider");
 const closeModalSlider = document.getElementById("closeModalSlider");
 const modalSlider = document.getElementById("myModalSlider");
@@ -146,9 +194,4 @@ brightnessSlider.addEventListener("input", () => {
     const brightnessValue = brightnessSlider.value;
     document.getElementById("tudo").style.filter = `brightness(${brightnessValue}%)`;
 
-    const codElements = document.querySelectorAll(".cod");
-    codElements.forEach((element) => {
-        const initialOpacity = 100 - brightnessValue; // Calcula a opacidade inicial
-        element.style.opacity = initialOpacity / 100; // Define a opacidade com base no valor do slider
-    });
 });

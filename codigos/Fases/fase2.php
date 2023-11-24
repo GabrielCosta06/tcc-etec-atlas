@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <header>
             <p>2</p>
             <div class="navbar">
-                <div class="resposta">
+                <div class="resposta ">
                     <form action="fase2.php" method="post">
                         <input type="text" class="rs" name="rs" id="rs" autocomplete="off" placeholder="Dica: Local?">
                         <input type="submit" value="Enviar" class="enviar">
@@ -98,10 +98,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
         </header>
-
+        <div class="meio">
         <i class="fa fa-sun-o sun"><br> luceat</i>
         <h1 class="cod"> 38.56889920928527, -7.908806192879108</h1>
-
+        </div>
 
         <div id="mainModal" class="modal">
             <div class="modal-content">
@@ -145,11 +145,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     </div>
 
-    <p style="font-size: 20px;" id="timer"></p>
+    <p class="timer" id="timer"></p>
     <br>
-    <p style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
-            <?php echo $name ?>
-        </span></p>
+    <p class="demore" style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
+        <?php echo $name ?></span>
+    </p>
     <script src="fases.js"></script>
 
 </body>

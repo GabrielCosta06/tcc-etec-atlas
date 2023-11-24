@@ -100,10 +100,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
         </header>
-        <div style="display: flex; justify-content: center; margin-top: 2%;">
+        <div class="iframe" style="display: flex; justify-content: center; margin-top: 2%;">
             <div id="iframe-container" style="width: 60%;">
-                <div
-                    style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
                     <iframe id="myIframe"
                         src="https://www.jigsawplanet.com/?rc=play&amp;pid=2f72a962898b&amp;view=iframe"
                         style="position: absolute; width: 100%; height: 100%; border: none;"></iframe>
@@ -216,12 +215,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
-    <p style="font-size: 20px;" id="timer"></p>
+
+    
+    <p class="timer" id="timer"></p>
     <br>
-    <p style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
-            <?php echo $name ?>
-        </span></p>
-    <script src="fases.js"></script>
+    <p class="demore" style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
+        <?php echo $name ?>
+    </p>
+    <script src="fase1.js"></script>
 
 </body>
 

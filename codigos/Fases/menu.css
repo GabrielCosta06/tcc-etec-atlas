@@ -105,3 +105,12 @@
   h1.author a:hover {
     color: #ddd;
   }
+
+  @media (max-width: 640px) {
+    .circular-menu {
+      margin-right: 140px !important;
+      margin-bottom: 270px !important; 
+      
+    }
+
+  }

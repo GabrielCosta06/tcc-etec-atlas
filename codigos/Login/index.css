@@ -164,15 +164,15 @@ hr {
 }
 
 @media (max-width: 460px) {
-  .facebook-page h1 {
-    font-size: 3.5rem;
+  
+  .container {
+    width: 100% !important;
+  }
+  .facebook-page {
+    flex-direction: column;
+    text-align: center;
+    flex-wrap: wrap;
   }
 
-  .facebook-page p {
-    font-size: 1.3rem;
-  }
-
-  form {
-    padding: 15px;
-  }
+  
 }

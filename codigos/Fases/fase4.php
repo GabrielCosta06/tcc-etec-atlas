@@ -99,31 +99,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
         </header>
-        <h2 class="binario" style="font-size:10px;">
-            <div class="g1">01100101 </div>
-            <div class="g2">01110011</div>
-            <div class="g3">01110100</div>
-            <div class="g4">01100001</div>
-            <div class="g5">01101101</div>
+        <h2 class="binario" style="font-size:14px; margin-top: 150px;">
+            <div class="g1">1- 01100101 </div>
+            <div class="g2">2- 01110011</div>
+            <div class="g3">3- 01110100</div>
+            <div class="g4">4- 01100001</div>
+            <div class="g5">5- 01101101</div>
 
-            <div class="g1">01101111 </div>
-            <div class="g2">01110011 </div>
-            <div class="g3">00100000 </div>
-            <div class="g4">01100101 </div>
-            <div class="g5">01101101 </div>
+            <div class="g1">6- 01101111 </div>
+            <div class="g2">7- 01110011 </div>
+            <div class="g3">8- 00100000 </div>
+            <div class="g4">9- 01100101 </div>
+            <div class="g5">10- 01101101 </div>
 
-            <div class="g1">00100000 </div>
-            <div class="g2">01110100 </div>
-            <div class="g3">01101111 </div>
-            <div class="g4">01100100 </div>
-            <div class="g5">01100001 </div>
+            <div class="g1">11- 00100000 </div>
+            <div class="g2">12- 01110100 </div>
+            <div class="g3">13- 01101111 </div>
+            <div class="g4">14-01100100 </div>
+            <div class="g5">15- 01100001 </div>
 
-            <div class="g1">00100000 </div>
-            <div class="g2">01110000 </div>
-            <div class="g3">01100001 </div>
-            <div class="g4">01110010 </div>
-            <div class="g5">01110100 </div>
-            <div class="g1">01100101</div>
+            <div class="g1">16- 00100000 </div>
+            <div class="g2">17- 01110000 </div>
+            <div class="g3">18- 01100001 </div>
+            <div class="g4">19- 01110010 </div>
+            <div class="g5">20- 01110100 </div>
+            <div class="g1">21- 01100101</div>
         </h2><br><br><br>
 
 
@@ -190,11 +190,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
 
-        <p style="font-size: 20px;" id="timer"></p>
-        <br>
-        <p style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
-                <?php echo $name ?>
-            </span></p>
+        <p class="timer" id="timer"></p>
+    <br>
+    <p class="demore" style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
+        <?php echo $name ?></span>
+    </p>
         <script src="fases.js"></script>
 
 </body>

@@ -45,7 +45,7 @@ audio {
     display: flex;
     margin: auto;
     width: 100%;
-    margin-left: 33%;
+    margin-left: 29%;
     flex-direction: column;
 }
 
@@ -297,7 +297,7 @@ button.fechar:active {
     border: 1px #fff solid;
 }
 
-.Fcenter{
+.Fcenter {
     display: flex;
     flex: 1;
 
@@ -312,13 +312,14 @@ button.fechar:active {
 }
 
 .sun {
-    font-size: 30px;
+    font-size: 100px;
     color: white;
     z-index: 2;
     justify-content: center;
     display: flex;
-    margin-left: 45vw;
+    margin-left: 40.5vw;
     text-align: center;
+    margin-top: 16%;
 }
 
 
@@ -346,6 +347,10 @@ button.fechar:active {
     justify-content: center;
     font-size: 15px;
     flex: 1;
+}
+
+.enigma {
+    margin-left: -7%;
 }
 
 .select {
@@ -378,6 +383,16 @@ div.salvar {
     border-radius: 3rem;
 }
 
+.timer {
+    bottom: 10px;
+    font-size: 25px;
+}
+
+.demore {
+    bottom: 50px;
+    left: 0px;
+}
+
 @media (max-width: 1055px) {
     div.modal-content {
         font-size: 9px;
@@ -395,6 +410,7 @@ div.salvar {
     .binario {
         font-size: 10PX;
     }
+
     .modalSlider {
         top: 25vh;
         left: 40vw;
@@ -404,6 +420,10 @@ div.salvar {
 }
 
 @media (max-width: 640px) {
+    body {
+        overflow: none;
+    }
+
     div.modal-content {
         font-size: 7px;
     }
@@ -414,15 +434,81 @@ div.salvar {
     }
 
     .close {
-        font-size: 11px;
+        font-size: 24px;
+        top: 0;
+        right: 10px;
     }
 
     .binario {
         font-size: 9PX;
     }
+
+    p {
+        font-size: 27px;
+    }
+
+    .timer {
+        font-size: 12px;
+        margin-top: 370px;
+        margin-left: 20px;
+    }
+
+    .iframe {
+        width: 120% !important;
+        margin-top: 200px !important;
+        margin-left: -35px;
+    }
+
+    .resposta {
+        margin-left: 15%;
+        margin-right: -40%;
+    }
+
+    .demore {
+        margin-top: 320px;
+        font-size: 15px !important;
+        margin-left: 20px;
+    }
+
+    .modal {
+        width: 55vw;
+        height: 50vh;
+        top: 5vh;
+        left: 34vw;
+    }
+    .txtModalDia2{
+        font-size: 11px;
+    }
+
+    .emailbtn {
+        width: 17vw;
+        height: 2vh;
+        border: 1px #9669B5 solid;
+    }
+
+    .sun {
+        font-size: 60px;
+        margin-left: 34vw;
+    }
+
+    .modalSlider {
+        top: 25vh;
+        left: 25vw;
+        width: 55vw;
+        height: 37vh;
+    }
+
+    .enigma {
+        margin-left: 6.8%;
+    }
+
+    .binario{
+        flex-direction: column;
+        margin-left: 36vw;
+    }
+
+    
 }
-
-
 /*binario */
 
 

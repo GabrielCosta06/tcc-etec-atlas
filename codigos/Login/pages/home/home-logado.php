@@ -72,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </header>
 
         <section class="content1">
+            <img src="1.png" alt="">
             <div class="max-width">
                 <div class="master">
                     <div class="principal">
@@ -80,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
                     <div class="sj">
                         <div class="jogar">
-                            <p>Você joga e se diverte!<br><span>Tá esperando o que?</span></p>
+                            <p>Você joga e se diverte!<br><span class="cinza">Tá esperando o que?</span></p>
                             <br>
                             <form action="home-logado.php" method="post">
                                 <button name="jogar">Jogar</button>
@@ -101,10 +102,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <h1>SOBRE</h1>
                     </div>
                     <br>
-                    - Nosso TCC tem como base um site de enigmas, com o objetivo de desenvolver um método criativo, que
+                    <p class= "sobretext"> - Nosso TCC tem como base um site de enigmas, com o objetivo de desenvolver um método criativo, que
                     estimula a capacidade cognitiva.​<br><br>
 
                     - Esse site conta com 5 enigmas, abordando temas do curso Informática Para Internet e variados. Boa sorte!
+                    </p>
                 </div>
             </div>
         </section>
