@@ -152,27 +152,19 @@ hr {
   background: #3ba626;
 }
 
-@media (max-width: 900px) {
-  .facebook-page {
-    flex-direction: column;
+
+@media (max-width: 640px) { 
+  .flex {
+    display: block !important;
+  }
+  .text{
     text-align: center;
+    margin: 0;
   }
 
-  .facebook-page .text {
-    margin-bottom: 30px;
-  }
-}
-
-@media (max-width: 460px) {
-  
-  .container {
-    width: 100% !important;
-  }
-  .facebook-page {
-    flex-direction: column;
-    text-align: center;
-    flex-wrap: wrap;
+  .text p {
+    font-size: smaller;
   }
 
-  
+
 }

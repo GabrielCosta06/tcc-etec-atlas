@@ -2,42 +2,29 @@
 session_start();
 require_once '../Login/db_connect.php';
 
-if (isset($_SESSION['name'])) {
-    $name = $_SESSION['name'];
-}
-
+// sessão: $userId e $name
+require 'sessaoNome-ID.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['rs'])) {
-
         $rs = strtolower(trim($_POST["rs"]));
-        $userId = $_SESSION['user_id'];
 
         #checar se o cookie ainda é válido
         if (isset($_COOKIE['timer']) && $_COOKIE['timer'] > 0) {
-            $selectSql = "SELECT progress FROM users WHERE user_id = '$userId'";
-            $result = $conn->query($selectSql);
+            if ($rs === "tobias") {
+                $newProgress = 2;
+                $updateSql = "UPDATE users SET progress = '$newProgress' WHERE user_id = '$userId'";
+                $_SESSION['progress'] = $newProgress;
 
-            if ($result && $result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                $currentProgress = $row['progress'];
-
-                if ($rs === "tobias") {
-                    $newProgress = 2;
-                    $updateSql = "UPDATE users SET progress = '$newProgress' WHERE user_id = '$userId'";
-
-                    if ($conn->query($updateSql) === TRUE) {
-                        echo '<script>alert("Ótimo! Seu progresso foi atualizado com sucesso!");</script>';
-                        echo '<script>alert("Resposta correta! Próxima fase...");</script>';
-                        echo '<script>window.location.href = "fase2.php";</script>';
-                    } else {
-                        echo '<script>alert("Ops! Houve um problema ao atualizar o seu progresso: ' . $conn->error . '");</script>';
-                    }
+                if ($conn->query($updateSql) === TRUE) {
+                    echo '<script>alert("Ótimo! Seu progresso foi atualizado com sucesso!");</script>';
+                    echo '<script>alert("Resposta correta! Próxima fase...");</script>';
+                    echo '<script>window.location.href = "fase2.php";</script>';
                 } else {
-                    echo '<script>alert("Resposta incorreta!");</script>';
+                    echo '<script>alert("Ops! Houve um problema ao atualizar o seu progresso: ' . $conn->error . '");</script>';
                 }
             } else {
-                echo '<script>alert("Erro ao buscar o progresso do usuário: ' . $conn->error . '");</script>';
+                echo '<script>alert("Resposta incorreta!");</script>';
             }
         } else {
             echo '<script>alert("Que pena, o tempo se esgotou!");</script>';
@@ -45,8 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '<script>window.location.href = "../Login/index.php";</script>';
         }
     }
-    $conn->close();
 }
+
+$conn->close();
 ?>
 
 
@@ -102,7 +90,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </header>
         <div class="iframe" style="display: flex; justify-content: center; margin-top: 2%;">
             <div id="iframe-container" style="width: 60%;">
-                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+                <div
+                    style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
                     <iframe id="myIframe"
                         src="https://www.jigsawplanet.com/?rc=play&amp;pid=2f72a962898b&amp;view=iframe"
                         style="position: absolute; width: 100%; height: 100%; border: none;"></iframe>
@@ -216,11 +205,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
-    
+
     <p class="timer" id="timer"></p>
     <br>
     <p class="demore" style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
-        <?php echo $name ?>
+            <?php echo $name ?>
     </p>
     <script src="fase1.js"></script>
 

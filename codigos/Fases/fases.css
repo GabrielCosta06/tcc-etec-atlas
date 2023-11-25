@@ -353,6 +353,17 @@ button.fechar:active {
     margin-left: -7%;
 }
 
+.enigma2 {
+    margin-left: -55%;
+    display: flex;
+    justify-content: center; 
+    margin-top: 14%;
+}
+.julio{
+    margin-top: 5%; 
+    font-size: smaller;
+    margin-left: 22%;
+}
 .select {
     color: white;
     font-size: 50px;
@@ -506,7 +517,18 @@ div.salvar {
         flex-direction: column;
         margin-left: 36vw;
     }
-
+    .enigma2 {
+        display: flex;
+        margin-top: 50%;
+        margin-right: 70vw;
+        font-size: 10px;
+        text-align: center;
+    }
+    .julio{
+        margin-top: 30%; 
+        font-size: smaller;
+        margin-left: 58%;
+    }
     
 }
 /*binario */

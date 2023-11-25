@@ -2,42 +2,31 @@
 session_start();
 require_once '../Login/db_connect.php';
 
-if (isset($_SESSION['name'])) {
-    $name = $_SESSION['name'];
-}
-
+// sessão: $userId e $name
+require 'sessaoNome-ID.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['rs'])) {
 
         $rs = strtolower($_POST["rs"]);
-        $userId = $_SESSION['user_id'];
 
         #checar se o cookie ainda é válido
         if (isset($_COOKIE['timer']) && $_COOKIE['timer'] > 0) {
-            $selectSql = "SELECT progress FROM users WHERE user_id = '$userId'";
-            $result = $conn->query($selectSql);
 
-            if ($result && $result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                $currentProgress = $row['progress'];
+            if ($rs === "estamos em toda parte") {
+                $newProgress = 5;
+                $updateSql = "UPDATE users SET progress = '$newProgress' WHERE user_id = '$userId'";
+                $_SESSION['progress'] = $newProgress;
 
-                if ($rs === "estamos em toda parte") {
-                    $newProgress = 5;
-                    $updateSql = "UPDATE users SET progress = '$newProgress' WHERE user_id = '$userId'";
-
-                    if ($conn->query($updateSql) === TRUE) {
-                        echo '<script>alert("Ótimo! Seu progresso foi atualizado com sucesso!");</script>';
-                        echo '<script>alert("Resposta correta! Próxima fase...");</script>';
-                        echo '<script>window.location.href = "fase5.php";</script>';
-                    } else {
-                        echo '<script>alert("Ops! Houve um problema ao atualizar o seu progresso: ' . $conn->error . '");</script>';
-                    }
+                if ($conn->query($updateSql) === TRUE) {
+                    echo '<script>alert("Ótimo! Seu progresso foi atualizado com sucesso!");</script>';
+                    echo '<script>alert("Resposta correta! Próxima fase...");</script>';
+                    echo '<script>window.location.href = "fase5.php";</script>';
                 } else {
-                    echo '<script>alert("Resposta incorreta!");</script>';
+                    echo '<script>alert("Ops! Houve um problema ao atualizar o seu progresso: ' . $conn->error . '");</script>';
                 }
             } else {
-                echo '<script>alert("Erro ao buscar o progresso do usuário: ' . $conn->error . '");</script>';
+                echo '<script>alert("Resposta incorreta!");</script>';
             }
         } else {
             echo '<script>alert("Que pena, o tempo se esgotou!");</script>';
@@ -45,9 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '<script>window.location.href = "../Login/index.php";</script>';
         }
     }
-    $conn->close();
 }
-
+$conn->close();
 ?>
 
 
@@ -92,8 +80,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p>4</p>
             <div class="navbar">
                 <div class="resposta">
-                <form action="fase4.php" method="post">
-                        <input type="text" class="rs" name="rs" id="rs" autocomplete="off" placeholder="Dica: Onde estamos?">
+                    <form action="fase4.php" method="post">
+                        <input type="text" class="rs" name="rs" id="rs" autocomplete="off"
+                            placeholder="Dica: Onde estamos?">
                         <input type="submit" value="Enviar" class="enviar">
                     </form>
                 </div>
@@ -191,11 +180,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <p class="timer" id="timer"></p>
-    <br>
-    <p class="demore" style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
-        <?php echo $name ?></span>
-    </p>
-        <script src="fases.js"></script>
+        <br>
+        <p class="demore" style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
+                <?php echo $name ?>
+            </span>
+        </p>
+        <script src="fase2-5.js"></script>
 
 </body>
 

@@ -2,42 +2,30 @@
 session_start();
 require_once '../Login/db_connect.php';
 
-if (isset($_SESSION['name'])) {
-    $name = $_SESSION['name'];
-}
-
+// sessão: $userId e $name
+require 'sessaoNome-ID.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['rs'])) {
 
         $rs = strtolower($_POST["rs"]);
-        $userId = $_SESSION['user_id'];
 
         #checar se o cookie ainda é válido
         if (isset($_COOKIE['timer']) && $_COOKIE['timer'] > 0) {
-            $selectSql = "SELECT progress FROM users WHERE user_id = '$userId'";
-            $result = $conn->query($selectSql);
+            if ($rs === "a capela de ossos" || $rs === "capela de ossos" || $rs === "capela dos ossos" || $rs === "a capela dos ossos") {
+                $newProgress = 3;
+                $updateSql = "UPDATE users SET progress = '$newProgress' WHERE user_id = '$userId'";
+                $_SESSION['progress'] = $newProgress;
 
-            if ($result && $result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                $currentProgress = $row['progress'];
-
-                if ($rs === "a capela de ossos" || $rs === "capela de ossos" || $rs === "capela dos ossos" || $rs === "a capela dos ossos") {
-                    $newProgress = 3;
-                    $updateSql = "UPDATE users SET progress = '$newProgress' WHERE user_id = '$userId'";
-
-                    if ($conn->query($updateSql) === TRUE) {
-                        echo '<script>alert("Ótimo! Seu progresso foi atualizado com sucesso!");</script>';
-                        echo '<script>alert("Resposta correta! Próxima fase...");</script>';
-                        echo '<script>window.location.href = "fase3.php";</script>';
-                    } else {
-                        echo '<script>alert("Ops! Houve um problema ao atualizar o seu progresso: ' . $conn->error . '");</script>';
-                    }
+                if ($conn->query($updateSql) === TRUE) {
+                    echo '<script>alert("Ótimo! Seu progresso foi atualizado com sucesso!");</script>';
+                    echo '<script>alert("Resposta correta! Próxima fase...");</script>';
+                    echo '<script>window.location.href = "fase3.php";</script>';
                 } else {
-                    echo '<script>alert("Resposta incorreta!");</script>';
+                    echo '<script>alert("Ops! Houve um problema ao atualizar o seu progresso: ' . $conn->error . '");</script>';
                 }
             } else {
-                echo '<script>alert("Erro ao buscar o progresso do usuário: ' . $conn->error . '");</script>';
+                echo '<script>alert("Resposta incorreta!");</script>';
             }
         } else {
             echo '<script>alert("Que pena, o tempo se esgotou!");</script>';
@@ -45,9 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '<script>window.location.href = "../Login/index.php";</script>';
         }
     }
-    $conn->close();
 }
-
+$conn->close();
 ?>
 
 
@@ -99,8 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         </header>
         <div class="meio">
-        <i class="fa fa-sun-o sun"><br> luceat</i>
-        <h1 class="cod"> 38.56889920928527, -7.908806192879108</h1>
+            <i class="fa fa-sun-o sun"><br> luceat</i>
+            <h1 class="cod"> 38.56889920928527, -7.908806192879108</h1>
         </div>
 
         <div id="mainModal" class="modal">
@@ -148,9 +135,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <p class="timer" id="timer"></p>
     <br>
     <p class="demore" style="font-size: 25px;">Não demore, <span style="font-weight: bolder; color: #9669B5;;">
-        <?php echo $name ?></span>
+            <?php echo $name ?>
+        </span>
     </p>
-    <script src="fases.js"></script>
+    <script src="fase2-5.js"></script>
 
 </body>
 

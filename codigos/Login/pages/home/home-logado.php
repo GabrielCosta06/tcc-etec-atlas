@@ -9,14 +9,6 @@ if (isset($_SESSION['name'])) {
     exit();
 }
 
-$conn->close();
-
-
-function phpAlert($msg)
-{
-    echo '<script type="text/javascript">alert("' . $msg . '")</script>';
-}
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST['logout'])) {
         $_SESSION = array();
@@ -28,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo '</script>';
         exit;
     }
-
+    
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (isset($_POST['jogar'])) {
             if (isset($_SESSION['progress'])) {
@@ -40,6 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 }
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>

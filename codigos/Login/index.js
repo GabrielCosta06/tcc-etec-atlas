@@ -19,24 +19,3 @@ togglePassword.addEventListener('click', function (e) {
     password.setAttribute('type', type);
     this.classList.toggle('fa-eye-slash');
 });
-
-//jquery
-
-$('[lang]').hide();
-$('[lang="pt"]').show();
-$('#lang-switch').change(function () { 
-    var lang = $(this).val();
-    switch (lang) {
-        case 'en':
-            $('[lang]').hide();
-            $('[lang="en"]').show();
-        break;
-        case 'pt':
-            $('[lang]').hide();
-            $('[lang="pt"]').show();
-        break;
-        default:
-            $('[lang]').hide();
-            $('[lang="pt"]').show();
-        }
-});
