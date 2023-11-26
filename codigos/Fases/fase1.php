@@ -100,7 +100,7 @@ $conn->close();
         </div>
 
 
-        <div id="mainModal" class="modal">
+        <div id="mainModal" class="modal important">
             <div class="modal-content">
                 <span id="closeMainModalBtn" class="close">&times;</span>
                 <h1>Querido Diário, </h1>

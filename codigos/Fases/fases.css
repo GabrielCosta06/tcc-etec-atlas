@@ -126,10 +126,13 @@ audio {
     z-index: 1;
     opacity: 0;
     overflow-y: auto;
-    border-radius: 5px;
+    border-radius: 8px;
 
 }
 
+.important{
+    z-index: 50;
+}
 .modal-content {
     padding: 20px;
     font-size: 15px;
@@ -144,7 +147,7 @@ audio {
     padding: 0px;
     cursor: pointer;
     font-size: 40px;
-    z-index: 6;
+    z-index: 6 !important;
 }
 
 .close:hover {
