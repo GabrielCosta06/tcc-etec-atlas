@@ -2,39 +2,37 @@
 session_start();
 require_once '../Login/db_connect.php';
 
-// sessão: $userId e $name
-require 'sessaoNome-ID.php';
+// sessão: $userId e $name e função phpAlert
+require './complementos.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['rs'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['respostaUsuario'])) {
+    $respostaUsuario = strtolower(trim($_POST["respostaUsuario"]));
 
-        $rs = strtolower($_POST["rs"]);
+    #checar se o cookie ainda é válido
+    if (isset($_COOKIE['timer']) && $_COOKIE['timer'] > 0) {
+        $respostasCorretas = ['seja bem vindo ao realinismo', 'bem vindo ao realinismo'];
+        if (in_array($respostaUsuario, $respostasCorretas)) {
+            $newProgress = 1;
+            $updateSql = "UPDATE users SET progress = '$newProgress' WHERE user_id = '$userId'";
+            $_SESSION['progress'] = $newProgress;
 
-        #checar se o cookie ainda é válido
-        if (isset($_COOKIE['timer']) && $_COOKIE['timer'] > 0) {
-
-            if ($rs === "seja bem vindo ao realinismo" || $rs === "bem vindo ao realinismo") {
-                $newProgress = 1;
-                $updateSql = "UPDATE users SET progress = '$newProgress' WHERE user_id = '$userId'";
-                $_SESSION['progress'] = $newProgress;
-
-                if ($conn->query($updateSql) === TRUE) {
-                    echo '<script>alert("Ótimo! Seu progresso foi atualizado com sucesso!");</script>';
-                    echo '<script>alert("Resposta correta! Aqui está uma supresa...");</script>';
-                    echo '<script>window.location.href = "conclusao.php";</script>';
-                } else {
-                    echo '<script>alert("Ops! Houve um problema ao atualizar o seu progresso: ' . $conn->error . '");</script>';
-                }
+            if ($conn->query($updateSql) === TRUE) {
+                phpAlert("Ótimo! Seu progresso foi atualizado com sucesso!");
+                phpAlert("Resposta correta! Próxima fase...");
+                echo '<script>window.location.href = "conclusao.php";</script>';
             } else {
-                echo '<script>alert("Resposta incorreta!");</script>';
+                phpAlert("Ops! Houve um problema ao atualizar o seu progresso: " . $conn->error);
             }
         } else {
-            echo '<script>alert("Que pena, o tempo se esgotou!");</script>';
-            include '../Login/destroy_session.php';
-            echo '<script>window.location.href = "../Login/index.php";</script>';
+            phpAlert("Resposta incorreta!");
         }
+    } else {
+        phpAlert("Que pena, o tempo se esgotou!");
+        include '../Login/destroy_session.php';
+        echo '<script>window.location.href = "../Login/index.php";</script>';
     }
 }
+
 $conn->close();
 ?>
 
@@ -86,8 +84,7 @@ $conn->close();
             <div class="navbar">
                 <div class="resposta">
                     <form action="fase5.php" method="post">
-                        <input type="text" class="rs" name="rs" id="rs" autocomplete="off"
-                            placeholder="Dica: Bem vindo?">
+                        <input type="text" name="respostaUsuario" autocomplete="off" placeholder="Dica: Bem vindo?">
                         <input type="submit" value="Enviar" class="enviar">
                     </form>
                 </div>
@@ -181,6 +178,9 @@ $conn->close();
                         <audio id="myAudio" src="./music/1.mp3" autoplay loop controls></audio>
                     </div>
                     <div class="Fcenter"> <button class="fechar" id="closeModalSlider">Fechar</button></div>
+                    <div class="progresso">
+                        <p>Seu progresso: <span><?php echo $progress ?></span></p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -2,10 +2,8 @@
 session_start();
 require_once("../Login/db_connect.php");
 
-# Para mostrar o nome do usuário
-if (isset($_SESSION['name'])) {
-    $name = $_SESSION['name'];
-}
+// sessão: $userId e $name e função phpAlert
+require './complementos.php';
 
 $conn->close();
 ?>
@@ -28,8 +26,7 @@ $conn->close();
                 <?php echo $name ?>,
             </span>você é demais!</h2>
     </div>
-    <canvas id="fireworksCanvas"
-        style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: -1;"></canvas>
+    <canvas id="fireworksCanvas" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: -1;"></canvas>
     <script src="conclusao.js"></script>
 </body>
 

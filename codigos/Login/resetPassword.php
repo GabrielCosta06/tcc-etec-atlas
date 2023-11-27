@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="index.css">
 
     <?php
-    include('db_connect.php');
+    require './db_connect.php';
 
     $message = '';
 
@@ -53,6 +53,8 @@
     } else {
         $message = "<p class=\"reset-error\">Código de reset não fornecido.</p>";
     }
+
+    $conn->close();
     ?>
 </head>
 

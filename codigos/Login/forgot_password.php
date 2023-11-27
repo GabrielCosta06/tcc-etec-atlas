@@ -29,7 +29,7 @@
                 </div>
                 <hr>
                 <div class="button">
-                    <a href="index.php">Criar nova conta</a>
+                    <a href="./pages/register/register.php">Criar nova conta</a>
                 </div>
             </form>
         </div>
