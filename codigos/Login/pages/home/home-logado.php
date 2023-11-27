@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo '</script>';
         exit;
     }
-    
+
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (isset($_POST['jogar'])) {
             if (isset($_SESSION['progress'])) {
@@ -51,7 +51,7 @@ $conn->close();
     <main>
         <header>
             <div class="max-width">
-                <h1>Atlas</h1>  
+                <h1>Atlas</h1>
                 <div class="login-texto">
                     <ul style="display: flex;">
                         <li><a href="#">Bem-vindo(a): <br><a style="font-size: 18px; text-decoration: none; font-weight: lighter;" href="#"><?php echo $name; ?></a></a></li>
@@ -60,9 +60,9 @@ $conn->close();
                                     <button class="botao-sair" type="submit" name="logout">Sair</button>
                                 </form>
                             </a></li>
-                        </ul>
-                    </div>
+                    </ul>
                 </div>
+            </div>
         </header>
 
         <section class="content1">
@@ -96,10 +96,10 @@ $conn->close();
                         <h1>SOBRE</h1>
                     </div>
                     <br>
-                    <p class= "sobretext"> - Nosso TCC tem como base um site de enigmas, com o objetivo de desenvolver um método criativo, que
-                    estimula a capacidade cognitiva.​<br><br>
+                    <p class="sobretext"> - Nosso TCC tem como base um site de enigmas, com o objetivo de desenvolver um método criativo, que
+                        estimula a capacidade cognitiva.​<br><br>
 
-                    - Esse site conta com 5 enigmas, abordando temas do curso Informática Para Internet e variados. Boa sorte!
+                        - Esse site conta com 5 enigmas, abordando temas do curso Informática Para Internet e variados. Boa sorte!
                     </p>
                 </div>
             </div>

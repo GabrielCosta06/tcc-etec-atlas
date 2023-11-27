@@ -152,12 +152,11 @@ hr {
   background: #3ba626;
 }
 
-
-@media (max-width: 640px) { 
+@media (max-width: 640px) {
   .flex {
     display: block !important;
   }
-  .text{
+  .text {
     text-align: center;
     margin: 0;
   }
@@ -165,6 +164,4 @@ hr {
   .text p {
     font-size: smaller;
   }
-
-
 }

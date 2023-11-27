@@ -9,6 +9,6 @@ CREATE TABLE IF NOT EXISTS `users` (
     `reset_code` VARCHAR(255)
 );
 /* 
-Essa é a query para sempre que for iniciar um novo servidor local.
-Caso não execute a query, o site não abre.
-*/  
+ Essa é a query para sempre que for iniciar um novo servidor local.
+ Caso não execute a query, o site não abre.
+ */

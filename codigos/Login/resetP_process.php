@@ -1,5 +1,6 @@
 <?php
-include('db_connect.php');
+require './db_connect.php';
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_POST['user_id'];
@@ -13,4 +14,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "<script>alert('Senha resetada com sucesso. Redirecionando você para login...')</script>";
     header('Location: index.php');
 }
-?>
