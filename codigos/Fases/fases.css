@@ -273,24 +273,24 @@ input[type="range"]::-moz-range-track {
 }
 
 button.fechar {
-  color: #9669b5;
-  background-color: black;
-  border: 1px #9669b5 solid;
-  width: 4vw;
-  height: 4vh;
-  font-weight: bold;
-  align-items: center;
+  display: inline-block;
+  border-radius: 12px;
+  background-color: #7e57c2;
+  border: none;
+  color: #ffffff;
   text-align: center;
-  display: flex;
-  justify-content: center;
-  flex: 1;
+  font-size: 16px;
+  padding: 10px;
+  width: 120px;
+  transition: all 0.5s;
+  cursor: pointer;
   margin: 20px;
-  border-radius: 14px;
+  flex: 1;
+  font-family: Arial, sans-serif;
 }
 
 button.fechar:hover {
-  color: #9900ff;
-  border: 1px #9900ff solid;
+  background-color: #5d4099;  
 }
 
 button.fechar:active {

@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['respostaUsuario'])) {
 
             if ($conn->query($updateSql) === TRUE) {
                 phpAlert("Ótimo! Seu progresso foi atualizado com sucesso!");
-                phpAlert("Resposta correta! Próxima fase...");
+                phpAlert("Resposta correta! Parabéns!");
                 echo '<script>window.location.href = "conclusao.php";</script>';
             } else {
                 phpAlert("Ops! Houve um problema ao atualizar o seu progresso: " . $conn->error);
